@@ -6,11 +6,11 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          	<h5>Category Table</h5>
+          	<h5>Sub Category Table</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-		  	<h6 class="card-body-title">Category List
+		  	<h6 class="card-body-title">Sub Category List
 		  		<a href="#" class="btn btn-sm btn-primary" style="float:right" data-toggle="modal" data-target="#modal-add">Add</a>
 		  	</h6> <br>
 			<div class="table-wrapper">
@@ -18,18 +18,20 @@
 					<thead>
 						<tr>
 							<th class="wd-20p">ID</th>
-							<th class="wd-50p">Name Category</th>
+							<th class="wd-30p">Sub Category Name</th>
+							<th class="wd-30p">Category name</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($category as $key=>$item)
+						@foreach($subcate as $key=>$item)
 						<tr scope="row">
 							<td>{{$item->id}}</td>
+							<td>{{$item->subcategory_name}}</td>
 							<td>{{$item->category_name}}</td>
 							<td>
-								<a href="{{route('category.edit',$item->id)}}" class="btn btn-sm btn-info" >Edit</a>
-								<a href="{{route('category.delete',$item->id)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
+								<a href="{{route('subcategory.edit',$item->id)}}" class="btn btn-sm btn-info" >Edit</a>
+								<a href="{{route('subcategory.delete',$item->id)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
 							</td>
 						</tr>
 						@endforeach
@@ -60,13 +62,21 @@
 						</ul>
 					</div>
 				@endif
-				<form method="post" action="{{route('category.store')}}">
+				<form method="post" action="{{route('subcategory.store')}}">
 					@csrf
 					<div class="modal-body pd-20">
 						<div class="form-group">
-							<label for="addName">Category name</label>
-							<input type="text" name="category_name" class="form-control" id="addName" placeholder="Category">
-						</div>												
+							<labe><b>Sub Category Name</b></label>
+							<input type="text" name="subcategory_name" class="form-control" placeholder="Sub Category">
+                        </div>	
+                        <div class="form-group">
+                            <label><b>Category Name</b></label>
+                            <select class="form-control" name="category_id">        
+                                @foreach($category as $item)
+                                    <option value="{{$item->id}}">{{$item->category_name}} </option>
+                                @endforeach
+                            </select>
+						</div>											
 					</div><!-- modal-body -->
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-info pd-x-20">Save</button>
@@ -77,40 +87,4 @@
       	</div><!-- modal-dialog -->
 	</div><!-- end modalAdd -->
 	
-	<!-- Modal Edit -->
-    <!-- <div id="modal-edit" class="modal fade">
-      	<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content tx-size-sm">
-				<div class="modal-header pd-x-20">
-					<h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Edit Category</h6>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				@if($errors->any())
-					<div class="alert alert-danger">
-						<ul>
-							@foreach ($errors->all() as $error)
-								<li>{{ $error }}</li>
-							@endforeach
-						</ul>
-					</div>
-				@endif
-				<form method="post" action="{{route('category.edit',$item->id)}}">
-					@csrf
-					<div class="modal-body pd-20">
-						<div class="form-group">
-							<label for="editName">Category name</label>
-							<input type="text" name="category_name" class="form-control" id="editName" value="">
-						</div>												
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-info pd-x-20">Save</button>
-						<button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
-					</div>
-				</form>
-			</div>
-      	</div>
-	</div> -->
-	<!--End  modalEdit -->
 @endsection

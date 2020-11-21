@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreCateRequest;
+use App\Http\Requests\CategoryRequest;
 
 use Psy\Command\ListCommand\FunctionEnumerator;
 use App\Model\Admin\Category;
-use Illuminate\Support\Facades\Validator;
+
 class CategoryController extends Controller
 {
     //
@@ -24,16 +24,13 @@ class CategoryController extends Controller
         return view('admin.category.category',compact('category'));
     }
 
-    public function storeCategory(StoreCateRequest $request){
-        // $validatedData = $request->validate([
-        //     'category_name' => 'required|unique:categories|max:255',
-        // ]);
+    public function storeCategory(CategoryRequest $request){
 
         $category = new Category();
         $category->category_name = $request->category_name;
         $category->save();
         $notification=array(
-            'message'=>'Category Added Successfully !',
+            'message'=>'Added Successfully !',
             'alert-type'=>'success'
             );
         return Redirect()->back()->with($notification);
@@ -45,5 +42,21 @@ class CategoryController extends Controller
             'alert-type'=>'success'
         ); 
         return Redirect()->back()->with($notification);
+    }
+
+    public function editCategory(){
+        $category = Category::where('id',request()->id)->first();
+        return view('admin.category.edit_category',compact('category'));
+        
+    }
+    public function updateCategory(CategoryRequest $request,$id){
+        $category = Category::where('id',$request->id)->first();
+        $category->category_name = $request->category_name;
+        $category->update();
+        $notification=array(
+            'message'=>'Update Successfully !',
+            'alert-type'=>'success'
+        ); 
+        return Redirect()->route('categories')->with($notification);
     }
 }

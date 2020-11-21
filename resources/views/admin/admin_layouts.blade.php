@@ -83,8 +83,8 @@
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
           <li class="nav-item"><a href="{{route('categories')}}" class="nav-link">Category</a></li>
-          <li class="nav-item"><a href="chart-flot.html" class="nav-link">Sub Category</a></li>
-          <li class="nav-item"><a href="chart-chartjs.html" class="nav-link">Brand</a></li>
+          <li class="nav-item"><a href="{{route('sub.categories')}}" class="nav-link">Sub Category</a></li>
+          <li class="nav-item"><a href="{{route('brands')}}" class="nav-link">Brand</a></li>
         </ul>
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
@@ -449,13 +449,40 @@
         @endif
     </script>  
 
+    <!-- preview img -->
+    <script>
+      $(window).on('resize', function() {
+      if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+      })
+      $(window).on('resize', function() {
+        if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+      })
+      function changeImg(input) {
+        //Nếu như tồn thuộc tính file, đồng nghĩa người dùng đã chọn file mới
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          //Sự kiện file đã được load vào website
+          reader.onload = function(e) {
+            //Thay đổi đường dẫn ảnh
+            $('#avatar').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      $(document).ready(function() {
+        $('#avatar').click(function() {
+          $('#img').click();
+        });
+      });
+    </script>
+
      <script>  
          $(document).on("click", "#delete", function(e){
              e.preventDefault();
              var link = $(this).attr("href");
                 swal({
                   title: "Are you Want to delete?",
-                  icon: "warning",
+                  icon: "warning", 
                   buttons: true,
                   dangerMode: true,
                 })
