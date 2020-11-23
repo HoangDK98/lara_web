@@ -45,13 +45,35 @@ Route::group(['prefix' =>'admin','namespace' => 'Admin'], function () {
 		Route::post('update/{id}', 'Category\BrandController@updateBrand')->name('brand.update');
 	});
 		//sub category
-		Route::group(['prefix' =>'subcategory'], function () {
-			Route::get('/', 'Category\SubCategoryController@subCategory')->name('sub.categories');
-			Route::post('store', 'Category\SubCategoryController@storeSubCategory')->name('subcategory.store');
-			Route::get('delete/{id}', 'Category\SubCategoryController@deleteSubCategory')->name('subcategory.delete');
-			Route::get('edit/{id}', 'Category\SubCategoryController@editSubCategory')->name('subcategory.edit');
-			Route::post('update/{id}', 'Category\SubCategoryController@updateSubCategory')->name('subcategory.update');
-		});
+	Route::group(['prefix' =>'subcategory'], function () {
+		Route::get('/', 'Category\SubCategoryController@subCategory')->name('sub.categories');
+		Route::post('store', 'Category\SubCategoryController@storeSubCategory')->name('subcategory.store');
+		Route::get('delete/{id}', 'Category\SubCategoryController@deleteSubCategory')->name('subcategory.delete');
+		Route::get('edit/{id}', 'Category\SubCategoryController@editSubCategory')->name('subcategory.edit');
+		Route::post('update/{id}', 'Category\SubCategoryController@updateSubCategory')->name('subcategory.update');
+	});
+
+		//Coupon
+	
+	Route::group(['prefix' =>'coupon'], function () {
+		Route::get('/','Coupon\CouponController@Coupon')->name('coupons');
+		Route::post('store', 'Coupon\CouponController@storeCoupon')->name('coupon.store');
+		Route::get('delete/{id}', 'Coupon\CouponController@deleteCoupon')->name('coupon.delete');
+		Route::get('edit/{id}', 'Coupon\CouponController@editCoupon')->name('coupon.edit');
+		Route::post('update/{id}', 'Coupon\CouponController@updateCoupon')->name('coupon.update');
+	});
+
+		//News Letters
+	Route::group(['prefix' =>'newsletter'], function () {
+		Route::get('/','Newsletter\NewsletterController@Coupon')->name('newsletters');
+	});	
 	
 });
+
+//Client
+   //News Letters
+Route::post('newsletter/store', 'FrontController@storeNewsletter')->name('newsletter.store');
+Route::get('newsletter/delete/{id}', 'FrontController@deleteNewsletter')->name('newsletter.delete');
+
+
 
