@@ -28,9 +28,9 @@
                 </div>	
                 <div class="form-group">
                     <label> <b> Brand logo </b></label><br/>
-					<img src="../../../{{$brand->brand_logo}}" id="avatar" class="thumbnail" width="150px" height="120px" alt="brand_logo"> </br></br>
-                    <input id="img" type="file" accept="image/*" name="brand_logo" class="form-control" placeholder="Brand logo" onchange="changeImg(this)">
-                    <input type="hidden" name="old_logo" class="form-control" value="{{$brand->brand_logo}}" onchange="changeImg(this)">
+					<img src="{{asset($brand->brand_logo)}}" id="avatar" class="thumbnail" width="80px" height="100px" alt="brand_logo"> </br></br>
+                    <input id="img" type="file" accept="image/*" name="brand_logo" class="form-control" placeholder="Brand logo" onchange="previewImg(this)">
+                    <input type="hidden" name="old_logo" class="form-control" value="{{$brand->brand_logo}}" onchange="previewImg(this)">
                 </div>												
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-info pd-x-20">Update</button>

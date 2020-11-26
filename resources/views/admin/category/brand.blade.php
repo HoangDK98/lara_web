@@ -28,7 +28,7 @@
 						<tr scope="row">
 							<td class="wd-15p">{{$item->id}}</td>
 							<td>{{$item->brand_name}}</td>
-							<td><img src="../../{{$item->brand_logo}}" height="100px" width="120px"> </td>
+							<td><img src="{{asset($item->brand_logo)}}" height="100px" width="120px"> </td>
 							<td>
 								<a href="{{route('brand.edit',$item->id)}}" class="btn btn-sm btn-info" >Edit</a>
 								<a href="{{route('brand.delete',$item->id)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
@@ -71,8 +71,8 @@
                         </div>
                         <div class="form-group">
 							<label for="addName">Brand logo</label>
-							<input id="img" type="file" accept="image/*" name="brand_logo" class="form-control" placeholder="Brand logo" onchange="changeImg(this)"> </br>
-							<img id="avatar" class="thumbnail" width="100px" height="80px" alt="brand_logo">
+							<input id="img" type="file" accept="image/*" name="brand_logo" class="form-control" placeholder="Brand logo" onchange="previewImg(this)"> </br>
+							<img id="avatar" class="thumbnail" alt="brand_logo">
 						</div>												
 					</div><!-- modal-body -->
 					<div class="modal-footer">

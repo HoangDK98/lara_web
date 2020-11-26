@@ -36,6 +36,9 @@
     <link href="{{asset('backend/lib/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet">
     <link href="{{asset('backend/lib/rickshaw/rickshaw.min.css')}}" rel="stylesheet">
 
+	<!-- //use tag input cdn -->
+	<link href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet"/>
+
     <!-- toastr -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
@@ -44,8 +47,10 @@
     <link href="{{asset('backend/lib/datatables/jquery.dataTables.css')}}" rel="stylesheet">
     <link href="{{asset('backend/lib/select2/css/select2.min.css')}}" rel="stylesheet">
 
+
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{asset('backend/css/starlight.css')}}">
+    <link href="{{asset('backend//lib/summernote/summernote-bs4.css')}}" rel="stylesheet">
 
     <!-- Login -->
     <link rel="icon" type="image/png" href="{{asset('backend/img/icons/favicon.ico')}}"/>
@@ -65,7 +70,7 @@
 
     @else
       <!-- ########## START: LEFT PANEL ########## -->
-    <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> ADMIN</a></div>
+    <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i>ADMIN</a></div>
     <div class="sl-sideleft">
       <div class="sl-sideleft-menu">
         <a href="{{asset('admin/home')}}" class="sl-menu-link active">
@@ -104,8 +109,8 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="" class="nav-link">Add product</a></li>
-          <li class="nav-item"><a href="" class="nav-link">All product</a></li>
+          <li class="nav-item"><a href="{{route('product.add')}}" class="nav-link">Add product</a></li>
+          <li class="nav-item"><a href="{{route('product.all')}}" class="nav-link">All product</a></li>
         </ul>
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
@@ -133,13 +138,13 @@
         <nav class="nav">
           <div class="dropdown">
             <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-              <span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>
+              <span class="logged-name">{{Auth::user()->name}}<span class="hidden-md-down"></span></span>
               <img src="../img/img3.jpg" class="wd-32 rounded-circle" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-header wd-200">
               <ul class="list-unstyled user-profile-nav">
                 <li><a href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
-                <li><a href="{{route('admin.password.change')}}"><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
+                <li><a href="{{route('admin.password.change')}}"><i class="icon ion-ios-gear-outline"></i> Change Password</a></li>
                 <li><a href="{{ route('admin.logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
               </ul>
             </div><!-- dropdown-menu -->
@@ -377,7 +382,25 @@
     <script src="{{asset('backend/lib/Flot/jquery.flot.pie.js')}}"></script>
     <script src="{{asset('backend/lib/Flot/jquery.flot.resize.js')}}"></script>
     <script src="{{asset('backend/lib/flot-spline/jquery.flot.spline.js')}}"></script>
+      <!-- summernote -->
+    <script src="{{asset('backend/lib/medium-editor/medium-editor.js')}}"></script>
+    <script src="{{asset('backend/lib/summernote/summernote-bs4.min.js')}}"></script>
 
+    <script>
+      $(function(){
+        'use strict';
+
+        // Inline editor
+        var editor = new MediumEditor('.editable');
+
+        // Summernote editor
+        $('#summernote').summernote({
+          height: 150,
+          tooltip: false
+        })
+      });
+    </script>
+    <!-- end summernote -->
     <script src="{{asset('backend/js/starlight.js')}}"></script>
     <script src="{{asset('backend/js/ResizeSensor.js')}}"></script>
     <script src="{{asset('backend/js/dashboard.js')}}"></script>
@@ -412,24 +435,21 @@
       $(window).on('resize', function() {
         if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
       })
-      function changeImg(input) {
-        //Nếu như tồn thuộc tính file, đồng nghĩa người dùng đã chọn file mới
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          //Sự kiện file đã được load vào website
-          reader.onload = function(e) {
-            //Thay đổi đường dẫn ảnh
-            $('#avatar').attr('src', e.target.result);
-          }
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
-      $(document).ready(function() {
-        $('#avatar').click(function() {
-          $('#img').click();
-        });
-      });
-    </script>
+      function previewImg(input) {
+		if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#avatar')
+			.attr('src', e.target.result)
+			.width(80)
+			.height(100);
+		};
+      reader.readAsDataURL(input.files[0]);
+    }
+	  }
+        
+	</script>
+	
 
      <script>  
          $(document).on("click", "#delete", function(e){

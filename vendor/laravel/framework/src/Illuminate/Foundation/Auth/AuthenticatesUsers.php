@@ -4,7 +4,6 @@ namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 
 trait AuthenticatesUsers
@@ -106,12 +105,9 @@ trait AuthenticatesUsers
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
-        $notification=array(
-            'message'=>'Success login !',
-            'alert-type'=>'success'
-        );
+
         return $this->authenticated($request, $this->guard()->user())
-                ?: redirect()->intended($this->redirectPath())->with($notification);
+                ?: redirect()->intended($this->redirectPath());
     }
 
     /**
@@ -136,14 +132,9 @@ trait AuthenticatesUsers
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        $notification=array(
-            'message'=>'Email or Password is incorrect !',
-            'alert-type'=>'error'
-        );
-        return Redirect()->back()->with($notification);
-        // throw ValidationException::withMessages([
-        //     $this->username() => [trans('auth.failed')],
-        // ]);
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
     }
 
     /**
@@ -167,6 +158,8 @@ trait AuthenticatesUsers
         $this->guard()->logout();
 
         $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
 
         return $this->loggedOut($request) ?: redirect('/');
     }

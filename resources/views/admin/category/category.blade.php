@@ -77,40 +77,5 @@
       	</div><!-- modal-dialog -->
 	</div><!-- end modalAdd -->
 	
-	<!-- Modal Edit -->
-    <!-- <div id="modal-edit" class="modal fade">
-      	<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content tx-size-sm">
-				<div class="modal-header pd-x-20">
-					<h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Edit Category</h6>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				@if($errors->any())
-					<div class="alert alert-danger">
-						<ul>
-							@foreach ($errors->all() as $error)
-								<li>{{ $error }}</li>
-							@endforeach
-						</ul>
-					</div>
-				@endif
-				<form method="post" action="{{route('category.edit',$item->id)}}">
-					@csrf
-					<div class="modal-body pd-20">
-						<div class="form-group">
-							<label for="editName">Category name</label>
-							<input type="text" name="category_name" class="form-control" id="editName" value="">
-						</div>												
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-info pd-x-20">Save</button>
-						<button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
-					</div>
-				</form>
-			</div>
-      	</div>
-	</div> -->
-	<!--End  modalEdit -->
+
 @endsection
