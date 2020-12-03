@@ -85,20 +85,13 @@
 									</select>
 								</div>
 							</div><!-- col-4 -->
-
-							<div class="col-lg-4">
-								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Product Size: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="product_size" value="{{$product->product_size}}" id="size" data-role="tagsinput">
-								</div>
-							</div><!-- col-4 -->
-							<div class="col-lg-4">
+							<div class="col-lg-6">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Product Color: <span class="tx-danger">*</span></label>
 									<input class="form-control" type="text" name="product_color" value="{{$product->product_color}}" id="color" data-role="tagsinput" placeholder="Enter Color">
 								</div>
 							</div><!-- col-4 -->
-							<div class="col-lg-4">
+							<div class="col-lg-6">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Selling price: <span class="tx-danger">*</span></label>
 									<input class="border form-control" type="text" name="selling_price" value="{{$product->selling_price}}" id="size" placeholder="Selling Price">
@@ -110,13 +103,7 @@
 									<textarea class="form-control" id="summernote" name="product_details" value="">{{$product->product_details}}</textarea>
 								</div>
 							</div><!-- col-4 -->
-							<div class="col-lg-12">
-								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Video Link: <span class="tx-danger">*</span></label>
-									<input class="form-control" id="summernote" name="video_link" value="{{$product->video_link}}">
-								</div>
-                            </div><!-- col-4 -->
-                            
+
 						<hr><br><br><br>
 						<div class="row">
 							<div class="col-lg-4">

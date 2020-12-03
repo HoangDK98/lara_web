@@ -21,19 +21,19 @@
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label for="product_name" class="form-control-label">Product name : <span class="tx-danger">*</span></label>
-									<input id="product_name" class="form-control" type="text" name="product_name" value="" placeholder="Enter product">
+									<input require id="product_name" class="form-control" type="text" name="product_name" value="" placeholder="Enter product">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label for="product_code" class="form-control-label">Product Code: <span class="tx-danger">*</span></label>
-									<input id="product_code" class="form-control" type="text" name="product_code" value="" placeholder="Product code">
+									<input require id="product_code" class="form-control" type="text" name="product_code" value="" placeholder="Product code">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label for="product_quantity" class="form-control-label">Quantity: <span class="tx-danger">*</span></label>
-									<input id="product_quantity" class="form-control" type="text" name="product_quantity" value="" placeholder="Quantity">
+									<input require id="product_quantity" class="form-control" type="text" name="product_quantity" value="" placeholder="Quantity">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-4">
@@ -42,7 +42,7 @@
 									<select class="form-control select2" data-placeholder="Choose country" name="category_id">
 										<option label="Choose country"></option>
 										@foreach($category as $item)
-										<option value="{{$item->id}}">{{$item->category_name}}</option>
+										<option require value="{{$item->id}}">{{$item->category_name}}</option>
 										@endforeach
 									</select>
 								</div>
@@ -61,49 +61,40 @@
 									<select class="form-control select2" data-placeholder="Choose country" name="brand_id">
 										<option label="Choose country"></option>
 										@foreach($brand as $item)
-										<option value="{{$item->id}}">{{$item->brand_name}}</option>
+										<option require value="{{$item->id}}">{{$item->brand_name}}</option>
 										@endforeach
 									</select>
 								</div>
 							</div><!-- col-4 -->
-
-							<div class="col-lg-4">
-								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Product Size: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="product_size" id="size" data-role="tagsinput" placeholder="Size">
-								</div>
-							</div><!-- col-4 -->
-							<div class="col-lg-4">
+							<div class="col-lg-6">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Product Color: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="product_color" id="color" data-role="tagsinput" placeholder="Enter Color">
+									<input require class="form-control" type="text" name="product_color" id="color" data-role="tagsinput" placeholder="Enter Color">
 								</div>
 							</div><!-- col-4 -->
-							<div class="col-lg-4">
+							<div class="col-lg-6">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Selling price: <span class="tx-danger">*</span></label>
-									<input class="border form-control" type="text" name="selling_price" id="size" placeholder="Selling Price">
+									<input require class="border form-control" type="text" name="selling_price" id="size" placeholder="Selling Price">
 								</div>
 							</div><!-- col-12 -->	
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="discount_price" class="form-control-label">Discount Price: <span class="tx-danger">*</span></label>
+									<input id="discount_price" class="form-control" type="text" name="discount_price" placeholder="Selling Price">
+								</div>
+							</div><!-- col-4 -->
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label class="form-control-label">Product detail: <span class="tx-danger">*</span></label>
-									<textarea class="form-control" id="summernote" name="product_details"></textarea>
+									<textarea require class="form-control" id="summernote" name="product_details"></textarea>
 								</div>
 							</div><!-- col-4 -->
-							<div class="col-lg-12">
-								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Video Link: <span class="tx-danger">*</span></label>
-									<input class="form-control" id="summernote" name="video_link">
-								</div>
-							</div><!-- col-4 -->
-							
-							
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label class="form-control-label">Image One(Main thumbnail): <span class="tx-danger">*</span></label>
 									<label class="custom-file">
-										<input type="file" id="file" class="custom-file-input" name="image_one" accept="image/*" onchange="previewImg1(this);">
+										<input require type="file" id="file" class="custom-file-input" name="image_one" accept="image/*" onchange="previewImg1(this);">
 										<span class="custom-file-control"></span>
 										<img src="#" id="one">
 									</label>
@@ -113,7 +104,7 @@
 								<div class="form-group">
 									<label class="form-control-label">Image Two: <span class="tx-danger">*</span></label>
 									<label class="custom-file">
-										<input type="file" id="file" class="custom-file-input" name="image_two" accept="image/*" onchange="previewImg2(this);">
+										<input require type="file" id="file" class="custom-file-input" name="image_two" accept="image/*" onchange="previewImg2(this);">
 										<span class="custom-file-control"></span>
 										<img src="#" id="two">
 									</label>
@@ -123,7 +114,7 @@
 								<div class="form-group">
 									<label class="form-control-label">Image Three: <span class="tx-danger">*</span></label>
 									<label class="custom-file">
-										<input type="file" id="file" class="custom-file-input" name="image_three" accept="image/*" onchange="previewImg3(this);">
+										<input require type="file" id="file" class="custom-file-input" name="image_three" accept="image/*" onchange="previewImg3(this);">
 										<span class="custom-file-control"></span>
 										<img src="#" id="three">
 									</label>

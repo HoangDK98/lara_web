@@ -32,7 +32,7 @@
 						<tr>
 							<td>{{$item->product_code}}</td>
 							<td>{{$item->product_name}}</td>
-							<td><img src="../../{{$item->image_one}}" height="50px" width="50px"></td>
+							<td><img src="{{asset($item->image_one)}}" height="50px" width="50px"></td>
 							<td>{{$item->category_name}}</td>
 							<td>{{$item->brand_name}}</td>
                             <td>{{$item->product_quantity}}</td>

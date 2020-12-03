@@ -42,11 +42,10 @@ class ProductController extends Controller
         $data['category_id'] = $request->category_id;
         $data['subcategory_id'] = $request->subcategory_id;
         $data['brand_id'] = $request->brand_id;
-        $data['product_size'] = $request->product_size;
+        $data['discount_price'] = $request->discount_price;
         $data['product_color'] = $request->product_color;
         $data['selling_price'] = $request->selling_price;
         $data['product_details'] = $request->product_details;
-        $data['video_link'] = $request->video_link;
         $data['main_slider'] = $request->main_slider;
         $data['hot_deal'] = $request->hot_deal;
         $data['best_rated'] = $request->best_rated;
@@ -145,11 +144,9 @@ class ProductController extends Controller
         $data['category_id'] = $request->category_id;
         $data['subcategory_id'] = $request->subcategory_id;
         $data['brand_id'] = $request->brand_id;
-        $data['product_size'] = $request->product_size;
         $data['product_color'] = $request->product_color;
         $data['selling_price'] = $request->selling_price;
         $data['product_details'] = $request->product_details;
-        $data['video_link'] = $request->video_link;
         $data['main_slider'] = $request->main_slider;
         $data['hot_deal'] = $request->hot_deal;
         $data['best_rated'] = $request->best_rated;

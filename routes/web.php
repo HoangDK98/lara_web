@@ -55,19 +55,35 @@ Route::group(['prefix' =>'admin','namespace' => 'Admin'], function () {
 	});
 
 		//product
-		Route::group(['prefix' =>'product'], function () {
-			Route::get('all', 'Product\ProductController@index')->name('product.all');
-			Route::get('add', 'Product\ProductController@createProduct')->name('product.add');
-			Route::post('store', 'Product\ProductController@storeProduct')->name('product.store');
-			Route::get('active/{id}', 'Product\ProductController@activeProduct')->name('product.active');
-			Route::get('inactive/{id}', 'Product\ProductController@inactiveProduct')->name('product.inactive');
-			Route::get('delete/{id}', 'Product\ProductController@deleteProduct')->name('product.delete');
-			Route::get('view/{id}', 'Product\ProductController@viewProduct')->name('product.view');
-			Route::get('edit/{id}', 'Product\ProductController@editProduct')->name('product.edit');
-			Route::post('update/withoutimg/{id}', 'Product\ProductController@updateWithoutImg')->name('product.updateWithoutImg');
-			Route::post('update/img/{id}', 'Product\ProductController@updateImg')->name('product.updateimg');
-			
-		});
+	Route::group(['prefix' =>'product'], function () {
+		Route::get('all', 'Product\ProductController@index')->name('product.all');
+		Route::get('add', 'Product\ProductController@createProduct')->name('product.add');
+		Route::post('store', 'Product\ProductController@storeProduct')->name('product.store');
+		Route::get('active/{id}', 'Product\ProductController@activeProduct')->name('product.active');
+		Route::get('inactive/{id}', 'Product\ProductController@inactiveProduct')->name('product.inactive');
+		Route::get('delete/{id}', 'Product\ProductController@deleteProduct')->name('product.delete');
+		Route::get('view/{id}', 'Product\ProductController@viewProduct')->name('product.view');
+		Route::get('edit/{id}', 'Product\ProductController@editProduct')->name('product.edit');
+		Route::post('update/withoutimg/{id}', 'Product\ProductController@updateWithoutImg')->name('product.updateWithoutImg');
+		Route::post('update/img/{id}', 'Product\ProductController@updateImg')->name('product.updateimg');
+		
+	});
+
+		//Blog
+	Route::group(['prefix' =>'blog'], function () {
+		Route::get('category/list', 'PostController@blogCateList')->name('blog.categorylist');
+		Route::post('category/store', 'PostController@storeBlogCate')->name('blog.category.store');
+		Route::get('category/delete/{id}', 'PostController@deleteBlogCate')->name('blog.category.delete');
+		Route::get('category/edit/{id}', 'PostController@editBlogCate')->name('blog.category.edit');
+		Route::post('category/update/{id}', 'PostController@updateBlogCate')->name('blog.category.update');
+		
+		Route::get('post/add', 'PostController@createPost')->name('add.post');
+		Route::get('post/all', 'PostController@index')->name('all.post');
+		Route::post('post/store', 'PostController@storePost')->name('store.post');
+		Route::get('post/delete/{id}', 'PostController@deletePost')->name('delete.post');
+		Route::get('post/edit/{id}', 'PostController@editPost')->name('edit.post');
+		Route::post('post/update/{id}', 'PostController@updatePost')->name('update.post');
+	});
 
 		//Coupon
 	

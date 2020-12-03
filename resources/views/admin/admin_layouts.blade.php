@@ -112,6 +112,20 @@
           <li class="nav-item"><a href="{{route('product.add')}}" class="nav-link">Add product</a></li>
           <li class="nav-item"><a href="{{route('product.all')}}" class="nav-link">All product</a></li>
         </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Blogs</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('blog.categorylist')}}" class="nav-link">Blog Category</a></li>
+          <li class="nav-item"><a href="{{route('add.post')}}" class="nav-link">Add Post</a></li>
+          <li class="nav-item"><a href="{{route('all.post')}}" class="nav-link">Post List</a></li>
+        </ul>
+
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
@@ -400,6 +414,20 @@
         })
       });
     </script>
+    <script>
+      $(function(){
+        'use strict';
+
+        // Inline editor
+        var editor = new MediumEditor('.editable');
+
+        // Summernote editor
+        $('#summernote1').summernote({
+          height: 150,
+          tooltip: false
+        })
+      });
+    </script>
     <!-- end summernote -->
     <script src="{{asset('backend/js/starlight.js')}}"></script>
     <script src="{{asset('backend/js/ResizeSensor.js')}}"></script>
@@ -441,7 +469,7 @@
 		reader.onload = function(e) {
 			$('#avatar')
 			.attr('src', e.target.result)
-			.width(80)
+			.width(100)
 			.height(100);
 		};
       reader.readAsDataURL(input.files[0]);

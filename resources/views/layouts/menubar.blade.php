@@ -1,3 +1,7 @@
+@php 
+	$category = DB::table('categories')->get();
+@endphp
+
 <nav class="main_nav">
 			<div class="container">
 				<div class="row">
@@ -9,45 +13,33 @@
 							<div class="cat_menu_container">
 								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
 									<div class="cat_burger"><span></span><span></span><span></span></div>
-									<div class="cat_menu_text">categories</div>
+									<div class="cat_menu_text">Danh mục</div>
 								</div>
-
 								<ul class="cat_menu">
-									<li><a href="#">Computers & Laptops <i class="fas fa-chevron-right ml-auto"></i></a></li>
-									<li><a href="#">Cameras & Photos<i class="fas fa-chevron-right"></i></a></li>
+									@foreach($category as $item)
 									<li class="hassubs">
-										<a href="#">Hardware<i class="fas fa-chevron-right"></i></a>
+										<a href="#">{{$item->category_name}}<i class="fas fa-chevron-right"></i></a>
 										<ul>
+										@php 
+											$subcategory = DB::table('subcategories')->where('category_id',$item->id)->get();
+										@endphp
+											@foreach($subcategory as $sub_item)
 											<li class="hassubs">
-												<a href="#">Menu Item<i class="fas fa-chevron-right"></i></a>
-												<ul>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-												</ul>
+												<a href="#">{{$sub_item->subcategory_name}}<i class=""></i></a>
 											</li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
+											@endforeach
 										</ul>
 									</li>
-									<li><a href="#">Smartphones & Tablets<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">TV & Audio<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">Gadgets<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">Car Electronics<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">Video Games & Consoles<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="#">Accessories<i class="fas fa-chevron-right"></i></a></li>
+									@endforeach
 								</ul>
 							</div>
-
 							<!-- Main Nav Menu -->
 
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="#">Trang chủ<i class="fas fa-chevron-down"></i></a></li>
 									<li class="hassubs">
-										<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
+										<a href="#">Ưu đãi<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li>
 												<a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
@@ -63,7 +55,7 @@
 										</ul>
 									</li>
 									<li class="hassubs">
-										<a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
+										<a href="#">Thương hiệu nổi tiếng<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li>
 												<a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
@@ -79,7 +71,7 @@
 										</ul>
 									</li>
 									<li class="hassubs">
-										<a href="#">Pages<i class="fas fa-chevron-down"></i></a>
+										<a href="#">Trang<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="product.html">Product<i class="fas fa-chevron-down"></i></a></li>
@@ -91,7 +83,7 @@
 										</ul>
 									</li>
 									<li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="contact.html">Liên hệ<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
 							</div>
 
@@ -201,17 +193,28 @@
 	</header>
 	
 	<!-- Banner -->
-
+@php 
+	$slider = DB::table('products')
+				->join('brands','brands.id','products.brand_id')
+				->select('products.*','brands.brand_name')
+				->where('main_slider',1)->orderBy('id','DESC')->first();
+@endphp
 	<div class="banner">
-		<div class="banner_background" style="background-image:url(images/banner_background.jpg)"></div>
+		<div class="banner_background" style="background-image:url({{asset('frontend/images/banner_background.jpg')}})"></div>
 		<div class="container fill_height">
 			<div class="row fill_height">
-				<div class="banner_product_image"><img src="{{asset('frontend/images/banner_product.png')}}" alt=""></div>
+				<div class="banner_product_image"><img src="{{asset($slider->image_one)}}" alt=""style="height:300px"></div>
 				<div class="col-lg-5 offset-lg-4 fill_height">
 					<div class="banner_content">
-						<h1 class="banner_text">new era of smartphones</h1>
-						<div class="banner_price"><span>$530</span>$460</div>
-						<div class="banner_product_name">Apple Iphone 6s</div>
+						<h2 class="banner_text">{{ $slider->product_name }}</h2>
+						<div class="banner_price">
+						@if($slider->discount_price == NULL)
+							<span>{{$slider->selling_price}} đ
+						@else
+							<span class="selling_price_slider">{{number_format($slider->discount_price,0,',','.')}} đ </span>
+							<span class="discount_price_slider">{{number_format($slider->selling_price,0,',','.')}} đ</span>
+						@endif
+						</div> <br>
 						<div class="button banner_button"><a href="#">Shop Now</a></div>
 					</div>
 				</div>
