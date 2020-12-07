@@ -19,11 +19,20 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '4ef1852bb9e2ee914e052784cb9a8db15be4c50f',
+    'reference' => 'ca7e71065ccd6095477120ebd5e3f627e254f2b9',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
   array (
+    'bumbummen99/shoppingcart' => 
+    array (
+      'pretty_version' => '3.0.0',
+      'version' => '3.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b05497d17d468035869ed6d1e5af3849c9dcbea6',
+    ),
     'cordoval/hamcrest-php' => 
     array (
       'replaced' => 
@@ -410,7 +419,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '4ef1852bb9e2ee914e052784cb9a8db15be4c50f',
+      'reference' => 'ca7e71065ccd6095477120ebd5e3f627e254f2b9',
     ),
     'laravel/tinker' => 
     array (
@@ -695,8 +704,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 

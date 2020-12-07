@@ -156,8 +156,14 @@
 							</div>
 							<div class="col-lg-4">
 								<label class="ckbox">
-									<input type="checkbox" name="hot_new" value="1">
+									<input type="checkbox" name="buyone_getone" value="1">
 									<span>Hot New </span>
+								</label>
+							</div>
+							<div class="col-lg-4">
+								<label class="ckbox">
+									<input type="checkbox" name="buyone_getone" value="1">
+									<span>BuyOne GetOne </span>
 								</label>
 							</div>
 						 </div> <!-- end row -->
