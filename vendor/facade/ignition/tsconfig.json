@@ -1,10 +1,7 @@
 {
     "compilerOptions": {
-        // "emitDecoratorMetadata": true,
-        // "forceConsistentCasingInFileNames": true,
-        // "outDir": "./dist", 
-        // "rootDir": "./src",
-        
+        "javascript.implicitProjectConfig.experimentalDecorators": true,
+        "experimentalDecorators":true,
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
         "lib": ["dom", "es2017"],
@@ -22,10 +19,7 @@
         "baseUrl": ".",
         "paths": {
             "*": ["*", "resources/js/*"]
-        },
-        
-        "experimentalDecorators": true,
-
+        }
     },
     "include": ["resources/**/*"]
 }

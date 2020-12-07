@@ -2110,8 +2110,8 @@ select option
 }
 .banner_2_image
 {
-	min-width: 100%;
-	width: calc(44.8vw);
+	min-width: 60%;
+	width: calc(34.8vw);
 	position: absolute;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
@@ -2120,10 +2120,12 @@ select option
 	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
 	left: 0;
+	margin-left: 25%;
 }
 .banner_2_image img
 {
-	width: 100%;
+	width: 50%;
+	height:70%;
 }
 .banner_2_category
 {

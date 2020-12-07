@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Hash;
+use App\User;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+
 class HomeController extends Controller
 {
     /**
@@ -66,14 +70,11 @@ class HomeController extends Controller
 
     public function Logout()
     {
-        // $logout= Auth::logout();
-            Auth::logout();
-            $notification=array(
-                'messege'=>'Successfully Logout',
-                'alert-type'=>'success'
-                 );
-             return Redirect()->route('login')->with($notification);
-       
-
+		Auth::logout();
+		$notification=array(
+			'messege'=>'Successfully Logout',
+			'alert-type'=>'success'
+		);
+		return Redirect()->route('login')->with($notification);
     }
 }

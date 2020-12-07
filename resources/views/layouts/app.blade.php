@@ -14,7 +14,10 @@
 <link rel="stylesheet" type="text/css" href="{{asset('frontend/plugins/slick-1.8.0/slick.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('frontend/styles/main_styles.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('frontend/styles/responsive.css')}}">
+<!-- chart -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+
+<script src="https://js.stripe.com/v3/"></script>
 
 
 </head>
@@ -57,9 +60,20 @@
 								</ul>
 							</div>
 							<div class="top_bar_user">
-								<div class="user_icon"><img src="{{asset('frontend/images/user.svg')}}" alt=""></div>
-								<div><a href="{{route('register')}}">Đăng kí</a></div>
-								<div><a href="{{route('login')}}">Đăng nhập</a></div>
+								@guest
+								<div><a href="{{route('register')}}"><div class="user_icon"><img src="{{asset('frontend/images/user.svg')}}" alt=""></div>Đăng kí || Đăng nhập</a></div>
+								@else
+									<ul class="standard_dropdown top_bar_dropdown">
+										<li>
+											<a href="#"><div class="user_icon"><img src="{{asset('frontend/images/user.svg')}}" alt=""></div>Profile<i class="fas fa-chevron-down"></i></a>
+											<ul>
+												<li><a href="#">Wishlist</a></li>
+												<li><a href="#">Checkout</a></li>
+												<li><a href="#">Others</a></li>
+											</ul>
+										</li>										
+									</ul>
+								@endguest	
 							</div>
 						</div>
 					</div>
@@ -143,6 +157,7 @@
 
 
 	<!-- Characteristics -->
+	
 @yield('content')
 
 	<!-- Footer -->
@@ -265,26 +280,32 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 <!-- toast -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 
-    <script>
-        @if(Session::has('message'))
-          var type="{{Session::get('alert-type','info')}}"
-          switch(type){
-              case 'info':
-                   toastr.info("{{ Session::get('message') }}");
-                   break;
-              case 'success':
-                  toastr.success("{{ Session::get('message') }}");
-                  break;
-              case 'warning':
-                 toastr.warning("{{ Session::get('message') }}");
-                  break;
-              case 'error':
-                  toastr.error("{{ Session::get('message') }}");
-                  break;
-          }
-        @endif
-    </script>  
+<!-- <script src="{{ asset('frontend/js/product_custom.js')}}"></script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+ 
+
+ <script>
+	@if(Session::has('messege'))
+		var type="{{Session::get('alert-type','info')}}"
+		switch(type){
+			case 'info':
+				toastr.info("{{ Session::get('messege') }}");
+				break;
+			case 'success':
+				toastr.success("{{ Session::get('messege') }}");
+				break;
+			case 'warning':
+				toastr.warning("{{ Session::get('messege') }}");
+				break;
+			case 'error':
+				toastr.error("{{ Session::get('messege') }}");
+				break;
+		}
+	@endif
+</script>  
+
 
 </html>
