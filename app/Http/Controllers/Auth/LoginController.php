@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -25,8 +24,18 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
+    protected function authenticated()
+    {
+        $notification=array(
+            'message'=>'Login Successfully !',
+            'alert-type'=>'success'
+        ); 
+        // return Redirect()->back()->with($notification);
+        session()->flash('flash_notification.success', 'Login Successfully !');
+        return redirect()->intended($this->redirectPath())->with(session()->flash('flash_notification.success'));
+    }
     /**
      * Create a new controller instance.
      *

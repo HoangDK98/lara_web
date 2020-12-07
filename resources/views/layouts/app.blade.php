@@ -16,14 +16,17 @@
 <link rel="stylesheet" type="text/css" href="{{asset('frontend/styles/responsive.css')}}">
 <!-- chart -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+<link rel="stylesheet" href="sweetalert2.min.css">
 
-<script src="https://js.stripe.com/v3/"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://js.stripe.com/v3/"></script> -->
 
 
 </head>
 
 <body>
-
+@if (session()->has('flash_notification.success')) <div class="alert alert-success">{!! session('flash_notification.success') !!}</div>
+@endif
 <div class="super_container">
 	
 	<!-- Header -->
@@ -65,11 +68,12 @@
 								@else
 									<ul class="standard_dropdown top_bar_dropdown">
 										<li>
-											<a href="#"><div class="user_icon"><img src="{{asset('frontend/images/user.svg')}}" alt=""></div>Profile<i class="fas fa-chevron-down"></i></a>
+											<a href="{{route('home')}}"><div class="user_icon"><img src="{{asset('frontend/images/user.svg')}}" alt=""></div>Profile<i class="fas fa-chevron-down"></i></a>
 											<ul>
 												<li><a href="#">Wishlist</a></li>
 												<li><a href="#">Checkout</a></li>
 												<li><a href="#">Others</a></li>
+												<li><a href="{{route('user.logout')}}">Logout</a></li>
 											</ul>
 										</li>										
 									</ul>
@@ -281,11 +285,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!-- toast -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-<!-- <script src="{{ asset('frontend/js/product_custom.js')}}"></script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
- 
+
 
  <script>
 	@if(Session::has('messege'))
