@@ -39,8 +39,8 @@
 							<div class="col-lg-4">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Category: <span class="tx-danger">*</span></label>
-									<select class="form-control select2" data-placeholder="Choose country" name="category_id">
-										<option label="Choose country"></option>
+									<select class="form-control select2" data-placeholder="Choose Category" name="category_id">
+										<option label="Choose Category"></option>
 										@foreach($category as $item)
 										<option require value="{{$item->id}}">{{$item->category_name}}</option>
 										@endforeach
@@ -50,7 +50,7 @@
 							<div class="col-lg-4">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Sub Category: <span class="tx-danger">*</span></label>
-									<select class="form-control select2" data-placeholder="Choose country" name="subcategory_id">
+									<select class="form-control select2" data-placeholder="Choose" name="subcategory_id">
 										
 									</select>
 								</div>
@@ -58,8 +58,8 @@
 							<div class="col-lg-4">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Brand: <span class="tx-danger">*</span></label>
-									<select class="form-control select2" data-placeholder="Choose country" name="brand_id">
-										<option label="Choose country"></option>
+									<select class="form-control select2" data-placeholder="Choose Brand" name="brand_id">
+										<option label="Choose Brand"></option>
 										@foreach($brand as $item)
 										<option require value="{{$item->id}}">{{$item->brand_name}}</option>
 										@endforeach

@@ -114,10 +114,15 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 
 //Client
 	//News Letters
-Route::post('newsletter/store', 'FrontController@storeNewsletter')->name('newsletter.store');
+	Route::post('newsletter/store', 'FrontController@storeNewsletter')->name('newsletter.store');
 
 	//Wishlist
-Route::get('wishlist/add/{id}', 'WishlistController@addWishlist');
+	Route::get('wishlist/add/{id}', 'WishlistController@addWishlist');
+
+//Cart
+
+	Route::get('cart/add/{id}','CartController@addCart');
+	Route::get('check','CartController@check');
 
 
 

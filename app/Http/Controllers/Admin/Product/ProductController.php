@@ -52,7 +52,7 @@ class ProductController extends Controller
         $data['trend'] = $request->trend;
         $data['mid_slider'] = $request->trend;
         $data['hot_new'] = $request->hot_new;   
-        $data['buyone_getone'] = $request->hot_new;   
+        $data['buyone_getone'] = $request->buyone_getone;   
         $data['status'] = 1;
 
         $image_one = $request->image_one;
@@ -107,9 +107,15 @@ class ProductController extends Controller
         $image_one = $product->image_one;
         $image_two = $product->image_two;
         $image_three = $product->image_three;
-        unlink($image_one);
-        unlink($image_two);
-        unlink($image_three);
+        if($image_one != NULL){
+            unlink($image_one);
+        }
+        if($image_two != NULL){
+            unlink($image_two);
+        }
+        if($image_three != NULL){
+            unlink($image_three);
+        }
 
         DB::table('products')->where('id',$id)->delete();
         $notification=array(
