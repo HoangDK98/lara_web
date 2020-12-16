@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'ca7e71065ccd6095477120ebd5e3f627e254f2b9',
+    'reference' => '82782a43ccf538189a3e6fe2f6d228a1f25557ed',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -412,6 +412,15 @@ private static $installed = array (
       ),
       'reference' => 'e0b93cf3ef527fca52e3f83fee50c629feab4da3',
     ),
+    'laravel/helpers' => 
+    array (
+      'pretty_version' => 'v1.4.0',
+      'version' => '1.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'cde8ea2427db4f37d67729846b70452499210a21',
+    ),
     'laravel/laravel' => 
     array (
       'pretty_version' => 'dev-master',
@@ -419,7 +428,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'ca7e71065ccd6095477120ebd5e3f627e254f2b9',
+      'reference' => '82782a43ccf538189a3e6fe2f6d228a1f25557ed',
     ),
     'laravel/tinker' => 
     array (

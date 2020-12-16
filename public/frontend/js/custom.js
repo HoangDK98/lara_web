@@ -161,7 +161,7 @@ $(document).ready(function()
 		{
 			placeholder.text(this.value);
 
-			$(this).animate({width: placeholder.width() + 'px' });
+			// $(this).animate({width: placeholder.width() + 'px' });
 		});
 	}
 

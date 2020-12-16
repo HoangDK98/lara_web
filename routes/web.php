@@ -123,6 +123,15 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 
 	Route::get('cart/add/{id}','CartController@addCart');
 	Route::get('check','CartController@check');
+	Route::get('product/cart','CartController@showCart')->name('show.cart');
+	Route::get('remove/cart/{rowId}','CartController@removeCart');
+	Route::get('update/cart','CartController@updateCart');
+	Route::get('cart/product/view/{id}','CartController@viewProduct');
+	Route::post('insert/into/cart','CartController@insertCart')->name('insert.into.cart');
+
+//product detail
+	Route::get('product/detail/{id}/{product_name}','ProductController@productDetail');
+	Route::post('product/addcart/{id}','ProductController@addCart');
 
 
 

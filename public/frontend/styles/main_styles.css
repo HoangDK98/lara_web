@@ -823,12 +823,12 @@ select option
 {
 	color: #0e8ce4;
 }
-.cart_price
+/* .cart_price
 {
-	font-size: 14px;
+	font-size: 1px;
 	color: #a3a3a3;
 	margin-top: -2px;
-}
+} */
 
 /*********************************
 3.3 Main Navigation
@@ -1980,17 +1980,13 @@ select option
 	visibility: hidden;
 	opacity: 0;
 }
-.featured_slider_item .old_price
+.old_price
 {
 	text-decoration-line:line-through;
 	font-size: 12px !important;
 }
 .new-category-two{
 	margin-bottom: 70px;
-}
-.buyone_slider_item .old_price{
-	text-decoration-line:line-through;
-	font-size: 12px !important;
 }
 
 .product_item.is_new .product_new,
