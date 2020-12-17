@@ -70,8 +70,8 @@
 										<li>
 											<a href="{{route('home')}}"><div class="user_icon"><img src="{{asset('frontend/images/user.svg')}}" alt=""></div>{{Auth::user()->name}}<i class="fas fa-chevron-down"></i></a>
 											<ul>
-												<li><a href="#">Wishlist</a></li>
-												<li><a href="#">Checkout</a></li>
+												<li><a href="{{route('user.wishlist')}}">Wishlist</a></li>
+												<li><a href="{{route('user.checkout')}}">Checkout</a></li>
 												<li><a href="#">Others</a></li>
 												<li><a href="{{route('user.logout')}}">Logout</a></li>
 											</ul>
@@ -140,7 +140,7 @@
 							@endphp
 								<div class="wishlist_icon"><img src="{{asset('frontend/images/heart.png')}}" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="#">Yêu thích</a></div>
+									<div class="wishlist_text"><a href="{{route('user.wishlist')}}">Yêu thích</a></div>
 									<div class="wishlist_count">{{count($wishlist)}}</div>
 								</div>
 							</div>

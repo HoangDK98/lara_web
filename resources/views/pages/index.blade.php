@@ -1656,7 +1656,7 @@
 
 					var d = $('select[name="color"]').empty();
 					$.each(data.color,function(key,value){
-					$('select[name="color"]').append('<option value="'+value+'">'+value+'</option>'); 
+						$('select[name="color"]').append('<option value="'+value+'">'+value+'</option>'); 
         			});
 				}
 			})

@@ -54,13 +54,13 @@
 						<div class="order_total">
 							<div class="order_total_content text-md-right">
 								<div class="order_total_title">Order Total:</div>
-								<div class="order_total_amount">{{Cart::total()}} đ</div>
+								<div class="order_total_amount">{{number_format(Cart::total(),0,',','.')}} đ</div>
 							</div>
 						</div>
 
 						<div class="cart_buttons">
 							<button type="button" class="button cart_button_clear">Add to Cart</button>
-							<button type="button" class="button cart_button_checkout">Checkout</button>
+							<a href="{{route('user.checkout')}}" class="button cart_button_checkout">Checkout</a>
 						</div>
 					</div>
 				</div>

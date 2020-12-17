@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DB;
 use Cart;
 use Response;
+use Auth;
+use Session;
 class CartController extends Controller
 {
     //
@@ -86,5 +88,53 @@ class CartController extends Controller
             'alert-type'=>'success'
         ); 
         return Redirect()->back()->with($notification);
+    }
+    public function checkout(){
+        if(Auth::check()){
+            $cart = Cart::content();
+            return view('pages.checkout',compact('cart'));
+        }else {
+            $notification = array(
+                'messege' =>'At first Login Your Account ',
+                'alert-type' => 'warning'
+            );
+            return Redirect()->route('login')->with($notification);
+        }
+    }
+    public function wishlist(){
+        $id = Auth::id();
+        $wishlist = DB::table('wishlists')
+                    ->join('products','products.id','wishlists.product_id')
+                    ->select('products.*','wishlists.user_id')
+                    ->where('user_id',$id)
+                    ->get();
+        // return Response()->json($wishlist);
+        return view('pages.wishlist',compact('wishlist'));
+    }
+    public function applyCoupon(){
+        $coupon = request()->coupon;
+        $check = DB::table('coupons')->where('coupon',$coupon)->first();
+
+        if($check){
+            Session::put('coupon',[
+                'name' => $check->coupon ,
+                'discount' => $check->discount,
+                // 'binance' => Cart::subtotal() - $check->discount/100*Cart::subtotal()
+            ]);
+            $notification = array(
+                'messege' =>'Applied successfully coupon ',
+                'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+        }else{
+            $notification = array(
+                'messege' =>'Invalid coupon ',
+                'alert-type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
+        }
+    }
+    public function cancleCoupon(){
+        Session::forget('coupon');
     }
 }

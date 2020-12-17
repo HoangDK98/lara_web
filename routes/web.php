@@ -123,11 +123,15 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 
 	Route::get('cart/add/{id}','CartController@addCart');
 	Route::get('check','CartController@check');
-	Route::get('product/cart','CartController@showCart')->name('show.cart');
+	Route::get('user/cart','CartController@showCart')->name('show.cart');
 	Route::get('remove/cart/{rowId}','CartController@removeCart');
 	Route::get('update/cart','CartController@updateCart');
 	Route::get('cart/product/view/{id}','CartController@viewProduct');
 	Route::post('insert/into/cart','CartController@insertCart')->name('insert.into.cart');
+	Route::get('user/checkout','CartController@checkout')->name('user.checkout');
+	Route::get('user/wishlist','CartController@wishlist')->name('user.wishlist');
+	Route::post('user/apply/coupon','CartController@applyCoupon')->name('apply.coupon');
+	Route::get('user/cancle/coupon','CartController@cancleCoupon')->name('cancle.coupon');
 
 //product detail
 	Route::get('product/detail/{id}/{product_name}','ProductController@productDetail');
