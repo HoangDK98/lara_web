@@ -119,7 +119,7 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 	//Wishlist
 	Route::get('wishlist/add/{id}', 'WishlistController@addWishlist');
 
-//Cart
+	//Cart
 
 	Route::get('cart/add/{id}','CartController@addCart');
 	Route::get('check','CartController@check');
@@ -133,9 +133,20 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 	Route::post('user/apply/coupon','CartController@applyCoupon')->name('apply.coupon');
 	Route::get('user/cancle/coupon','CartController@cancleCoupon')->name('cancle.coupon');
 
-//product detail
+	//Payment
+	Route::get('payment/page','CartController@payment')->name('user.payment');
+	Route::post('process/payment','PaymentController@payment')->name('process.payment');
+	Route::post('stripe/charge','PaymentController@stripeCharge')->name('stripe.charge');
+
+
+	//View detail
 	Route::get('product/detail/{id}/{product_name}','ProductController@productDetail');
 	Route::post('product/addcart/{id}','ProductController@addCart');
+	
+	//Product page detail
+	Route::get('subproducts/{id}','ProductController@viewSubProduct')->name('view.sub.product');
+	Route::get('cateproducts/{id}','ProductController@viewCateProduct')->name('view.cate.product');
+
 
 
 

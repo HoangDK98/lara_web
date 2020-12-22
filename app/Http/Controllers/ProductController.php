@@ -46,4 +46,21 @@ class ProductController extends Controller
 
         return Redirect()->back()->with($notification);
     }
+    public function viewSubProduct($id){
+        $product = DB::table('products')->where('subcategory_id',$id)->paginate(5);
+        $all_product = DB::table('products')->where('subcategory_id',$id)->get();
+        $category = DB::table('categories')->get();
+        $brands = DB::table('products')->where('subcategory_id',$id)->select('brand_id')->groupBy('brand_id')->get();
+        $subcategory = DB::table('subcategories')->where('id',$id)->first();
+        $sub_name = $subcategory->subcategory_name;
+
+        return view('pages.sub_products',compact('product','category','brands','all_product','sub_name'));
+    }
+    public function viewCateProduct($id){
+        $product = DB::table('products')->where('products.category_id',$id)->paginate(5);
+        $category = DB::table('categories')->where('id',$id)->first();
+        $cate_name = $category->category_name;
+        $all_product = DB::table('products')->where('category_id',$id)->get();
+        return view('pages.cate_products',compact('product','all_product','cate_name'));
+    }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>OneTech</title>
+<title>TechShop</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="TechShop project">
@@ -42,26 +42,6 @@
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('frontend/images/phone.png')}}" alt=""></div>+84 986854598</div>
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('frontend/images/mail.png')}}" alt=""></div><a href="mailto:doanhoang4598@gmail.com">doanhoang4598@gmail.com</a></div>
 						<div class="top_bar_content ml-auto">
-							<div class="top_bar_menu">
-								<ul class="standard_dropdown top_bar_dropdown">
-									<li>
-										<a href="#">English<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">Italian</a></li>
-											<li><a href="#">Spanish</a></li>
-											<li><a href="#">Japanese</a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="#">$ US dollar<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">EUR Euro</a></li>
-											<li><a href="#">GBP British Pound</a></li>
-											<li><a href="#">JPY Japanese Yen</a></li>
-										</ul>
-									</li>
-								</ul>
-							</div>
 							<div class="top_bar_user">
 								@guest
 								<div><a href="{{route('register')}}"><div class="user_icon"><img src="{{asset('frontend/images/user.svg')}}" alt=""></div>Đăng kí || Đăng nhập</a></div>
@@ -184,12 +164,11 @@
 							<div class="logo"><a href="#">TechShop</a></div>
 						</div>
 						<div class="footer_title">Got Question? Call Us 24/7</div>
-						<div class="footer_phone">+38 068 005 3570</div>
+						<div class="footer_phone">+84 986854598</div>
 						<div class="footer_contact_text">
-							<p>17 Princess Road, London</p>
-							<p>Grester London NW18JR, UK</p>
+							<p>Giai Phong Ha Noi , VN</p>
 						</div>
-						<div class="footer_social">
+						<div class="footer_social" style="">
 							<ul>
 								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
 								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
@@ -206,10 +185,6 @@
 						<div class="footer_title">Find it Fast</div>
 						<ul class="footer_list">
 							<li><a href="#">Computers & Laptops</a></li>
-							<li><a href="#">Cameras & Photos</a></li>
-							<li><a href="#">Hardware</a></li>
-							<li><a href="#">Smartphones & Tablets</a></li>
-							<li><a href="#">TV & Audio</a></li>
 						</ul>
 						<div class="footer_subtitle">Gadgets</div>
 						<ul class="footer_list">
@@ -222,10 +197,7 @@
 					<div class="footer_column">
 						<ul class="footer_list footer_list_2">
 							<li><a href="#">Video Games & Consoles</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li><a href="#">Cameras & Photos</a></li>
-							<li><a href="#">Hardware</a></li>
-							<li><a href="#">Computers & Laptops</a></li>
+							
 						</ul>
 					</div>
 				</div>
@@ -235,12 +207,7 @@
 						<div class="footer_title">Customer Care</div>
 						<ul class="footer_list">
 							<li><a href="#">My Account</a></li>
-							<li><a href="#">Order Tracking</a></li>
-							<li><a href="#">Wish List</a></li>
-							<li><a href="#">Customer Services</a></li>
-							<li><a href="#">Returns / Exchange</a></li>
-							<li><a href="#">FAQs</a></li>
-							<li><a href="#">Product Support</a></li>
+							
 						</ul>
 					</div>
 				</div>

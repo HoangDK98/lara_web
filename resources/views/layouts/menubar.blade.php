@@ -18,14 +18,14 @@
 								<ul class="cat_menu">
 									@foreach($category as $item)
 									<li class="hassubs">
-										<a href="#">{{$item->category_name}}<i class="fas fa-chevron-right"></i></a>
+										<a href="{{route('view.cate.product',$item->id)}}">{{$item->category_name}}<i class="fas fa-chevron-right"></i></a>
 										<ul>
 										@php 
 											$subcategory = DB::table('subcategories')->where('category_id',$item->id)->get();
 										@endphp
 											@foreach($subcategory as $sub_item)
 											<li class="hassubs">
-												<a href="#">{{$sub_item->subcategory_name}}<i class=""></i></a>
+												<a href="{{route('view.sub.product',$sub_item->id)}}">{{$sub_item->subcategory_name}}<i class=""></i></a>
 											</li>
 											@endforeach
 										</ul>
@@ -75,14 +75,11 @@
 										<ul>
 											<li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="product.html">Product<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="blog_single.html">Blog Post<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="regular.html">Regular Post<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>
-									<li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="contact.html">Liên hệ<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
 							</div>
@@ -176,7 +173,6 @@
 										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
 									</ul>
 								</li>
-								<li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
 								<li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
 							</ul>
 							
@@ -192,32 +188,3 @@
 
 	</header>
 	
-	<!-- Banner -->
-@php 
-	$slider = DB::table('products')
-				->join('brands','brands.id','products.brand_id')
-				->select('products.*','brands.brand_name')
-				->where('main_slider',1)->orderBy('id','DESC')->first();
-@endphp
-	<div class="banner">
-		<div class="banner_background" style="background-image:url({{asset('frontend/images/banner_background.jpg')}})"></div>
-		<div class="container fill_height">
-			<div class="row fill_height">
-				<div class="banner_product_image"><img src="{{asset($slider->image_one)}}" alt=""style="height:300px"></div>
-				<div class="col-lg-5 offset-lg-4 fill_height">
-					<div class="banner_content">
-						<h2 class="banner_text">{{ $slider->product_name }}</h2>
-						<div class="banner_price">
-						@if($slider->discount_price == NULL)
-							<span>{{$slider->selling_price}} đ
-						@else
-							<span class="selling_price_slider">{{number_format($slider->discount_price,0,',','.')}} đ </span>
-							<span class="discount_price_slider">{{number_format($slider->selling_price,0,',','.')}} đ</span>
-						@endif
-						</div> <br>
-						<div class="button banner_button"><a href="#">Shop Now</a></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>

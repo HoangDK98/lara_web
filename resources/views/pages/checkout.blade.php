@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@include('layouts.menubar')
 
 @php
 $ship = DB::table('services')->first();
@@ -107,7 +108,7 @@ $free = $ship->shopping_charse;
             </div>
             <div class="cart_buttons">
                 <button type="button" class="button cart_button_clear">Add to Cart</button>
-                <a href="{{route('user.checkout')}}" class="button cart_button_checkout">Checkout</a>
+                <a href="{{route('user.payment')}}" class="button cart_button_checkout">Order</a>
             </div>
 		</div>
     </div>

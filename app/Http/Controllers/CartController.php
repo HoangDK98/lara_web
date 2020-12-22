@@ -137,4 +137,9 @@ class CartController extends Controller
     public function cancleCoupon(){
         Session::forget('coupon');
     }
+
+    public function payment(){
+        $cart = Cart::content();
+        return view('pages.payment',compact('cart'));
+    }
 }

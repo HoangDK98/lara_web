@@ -3,6 +3,7 @@
 @section('content')
 
 @include('layouts.menubar')
+@include('layouts.slider')
 
 @php 
 	$feature = DB::table('products')->where('status',1)->orderBy('id','ASC')->limit(12)->get();
@@ -175,9 +176,6 @@
 													</div>
 												@endif
 												<div class="product_name"><div><a href="{{asset('product/detail/'.$item->id.'/'.$item->product_name)}}">{{$item->product_name}}</a></div></div>
-												<!-- <div class="product_extras">
-													<button class="product_cart_button add-cart" data-id="{{$item->id}}">Add to Cart</button>
-												</div> -->
 												<div class="product_extras">
 													<button class="product_cart_button add-cart" id="{{$item->id}}" data-toggle="modal" data-target="#cartmodel" onclick="proView(this.id)">Add to Cart</button>
 												</div>
@@ -1570,7 +1568,6 @@
 								<input name="email" type="email" class="newsletter_input" required="required" placeholder="Enter your email address">
 								<button class="newsletter_button">Subscribe</button>
 							</form>
-							<div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
 						</div>
 					</div>
 				</div>
