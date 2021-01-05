@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
-
+@php
+$order = DB::table('orders')->where('user_id',Auth::id())->orderBy('id','DESC')->limit(10)->get();
+@endphp
 <div class="contact_form">
     <div class="container">
     <br><hr><br>
@@ -9,30 +11,27 @@
                 <table class="table table-response">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Body</th>
+                            <th scope="col">Payment Type</th>
+                            <th scope="col">Payment ID</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status Code</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($order as $item)
                         <tr>
-                            <td>1</td>
-                            <td>Mark 1</td>
-                            <td>Mark 1</td>
-                            <td>Mark 1</td>
+                            <td>{{$item->payment_type}}</td>
+                            <td>{{$item->payment_id}}</td>
+                            <td>{{number_format($item->total,0,'.',',')}} đ</td>
+                            <td>{{$item->date}}</td>
+                            <td>{{$item->status_code}}</td>
+                            <td>
+                                <a href="" class="btn btn-info">View</a>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark 1</td>
-                            <td>Mark 1</td>
-                            <td>Mark 1</td>
-                        </tr><tr>
-                            <td>1</td>
-                            <td>Mark 1</td>
-                            <td>Mark 1</td>
-                            <td>Mark 1</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

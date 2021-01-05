@@ -69,6 +69,25 @@ Route::group(['prefix' =>'admin','namespace' => 'Admin'], function () {
 		
 	});
 
+		//Order
+		Route::get('pending/order' , 'OrderController@newOrder')->name('admin.neworder');
+		Route::get('view/order/{id}' , 'OrderController@viewOrder')->name('admin.view.order');
+		Route::get('payment/accept/{id}' , 'OrderController@paymentAccept')->name('admin.payment.accept');
+		Route::get('payment/cancle/{id}' , 'OrderController@paymentCancle')->name('admin.payment.cancle');
+		Route::get('order/accept' , 'OrderController@orderAccept')->name('admin.order.accept');
+		Route::get('order/cancle' , 'OrderController@orderCancle')->name('admin.order.cancle');
+		Route::get('order/process' , 'OrderController@orderProcess')->name('admin.order.process');
+		Route::get('order/delivered' , 'OrderController@orderDelivered')->name('admin.order.delivered');
+		Route::get('process/delivery/{id}' , 'OrderController@acceptProcessDelevery')->name('admin.process.delivery');
+		Route::get('delivery/done/{id}' , 'OrderController@acceptDeleveryDone')->name('admin.delivery.done');
+
+		//Report
+		Route::get('today/report' , 'ReportController@todayReport')->name('admin.today.report');
+		Route::get('delivery/today' , 'ReportController@deliveryToday')->name('admin.delivery.today');
+		Route::get('month/report' , 'ReportController@monthReport')->name('admin.month.report');
+		Route::get('view/report' , 'ReportController@viewReport')->name('admin.view.report');
+		Route::get('search/report' , 'ReportController@searchReport')->name('admin.search.report');
+
 		//Blog
 	Route::group(['prefix' =>'blog'], function () {
 		Route::get('category/list', 'PostController@blogCateList')->name('blog.categorylist');
@@ -101,6 +120,8 @@ Route::group(['prefix' =>'admin','namespace' => 'Admin'], function () {
 		Route::get('delete/{id}', 'FrontController@deleteNewsletter')->name('newsletter.delete');
 
 	});	
+
+
 
 	
 });
@@ -146,6 +167,9 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 	//Product page detail
 	Route::get('subproducts/{id}','ProductController@viewSubProduct')->name('view.sub.product');
 	Route::get('cateproducts/{id}','ProductController@viewCateProduct')->name('view.cate.product');
+
+	//Order tracking
+	Route::get('order/tracking','FrontController@orderTracking')->name('order.tracking');
 
 
 

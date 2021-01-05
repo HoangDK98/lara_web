@@ -32,26 +32,6 @@
                             @endforeach
                         </ul>
                     </div>
-                    <div class="sidebar_section filter_by_section">
-                        <div class="sidebar_title">Filter By</div>
-                        <div class="sidebar_subtitle">Price</div>
-                        <div class="filter_price">
-                            <div id="slider-range" class="slider_range"></div>
-                            <p>Range: </p>
-                            <p><input type="text" id="amount" class="amount" readonly style="border:0; font-weight:bold;"></p>
-                        </div>
-                    </div>
-                    <div class="sidebar_section">
-                        <div class="sidebar_subtitle color_subtitle">Color</div>
-                        <ul class="colors_list">
-                            <li class="color"><a href="#" style="background: #b19c83;"></a></li>
-                            <li class="color"><a href="#" style="background: #000000;"></a></li>
-                            <li class="color"><a href="#" style="background: #999999;"></a></li>
-                            <li class="color"><a href="#" style="background: #0e8ce4;"></a></li>
-                            <li class="color"><a href="#" style="background: #df3b3b;"></a></li>
-                            <li class="color"><a href="#" style="background: #ffffff; border: solid 1px #e1e1e1;"></a></li>
-                        </ul>
-                    </div>
                     <div class="sidebar_section">
                         <div class="sidebar_subtitle brands_subtitle">Brands</div>
                         <ul class="brands_list">
@@ -93,7 +73,7 @@
                         <div class="product_grid_border"></div>
                         @foreach($product as $item)
                         <!-- Product Item -->
-                        <div class="product_item is_new">
+                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center is_new">
                             <div class="product_border"></div>
                             <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{asset($item->image_one)}}" alt=""></div>
                             <div class="product_content">

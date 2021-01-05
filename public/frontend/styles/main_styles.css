@@ -2219,7 +2219,7 @@ select option
 {
 	width: 100%;
 	padding-top: 96px;
-	padding-bottom: 126px;
+	/* padding-bottom: 126px; */
 }
 .new_arrivals_title
 {

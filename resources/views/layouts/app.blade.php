@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('frontend/styles/responsive.css')}}">
 <!-- chart -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
-<link rel="stylesheet" href="sweetalert2.min.css">
+<!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 <script src="https://js.stripe.com/v3/"></script>
@@ -42,6 +42,16 @@
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('frontend/images/phone.png')}}" alt=""></div>+84 986854598</div>
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('frontend/images/mail.png')}}" alt=""></div><a href="mailto:doanhoang4598@gmail.com">doanhoang4598@gmail.com</a></div>
 						<div class="top_bar_content ml-auto">
+							<div class="top_bar_menu">
+								@guest
+								@else
+								<ul class="standard_dropdown top_bar_dropdown">
+									<li>
+										<a href="{{route('home')}}" data-toggle="modal" data-target="#exampleModal">My Tracking Order</a>
+									</li>										
+								</ul>
+								@endguest	
+							</div>
 							<div class="top_bar_user">
 								@guest
 								<div><a href="{{route('register')}}"><div class="user_icon"><img src="{{asset('frontend/images/user.svg')}}" alt=""></div>Đăng kí || Đăng nhập</a></div>
@@ -72,9 +82,9 @@
 				<div class="row">
 
 					<!-- Logo -->
-					<div class="col-lg-2 col-sm-3 col-3 order-1">
+					<div class="col-lg-3 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="/"><img src="{{asset('frontend/images/logo.png')}}" alt="logo"></a></div>
+							<div class="logo"><a href="/"><img src="{{asset('frontend/images/logo.png')}}" style="width:170px;height:160px" alt="logo"></a></div>
 						</div>
 					</div>
 				@php 
@@ -82,23 +92,23 @@
 				@endphp
 					
 					<!-- Search -->
-					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+					<div class="col-lg-5 col-12 order-lg-2 order-3 text-lg-left text-right">
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
 									<form action="#" class="header_search_form clearfix">
 										<input type="search" required="required" class="header_search_input" placeholder="Tìm kiếm sản phẩm...">
-										<div class="custom_dropdown">
+										<!-- <div class="custom_dropdown">
 											<div class="custom_dropdown_list">
 												<span class="custom_dropdown_placeholder clc">Tất cả danh mục</span>
-												<i class="fas fa-chevron-down"></i>
+												
 												<ul class="custom_list clc">
 													@foreach($category as $item)
 													<li><a class="clc" href="#">{{$item->category_name}}</a></li>
 													@endforeach
 												</ul>
 											</div>
-										</div>
+										</div> -->
 										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="{{asset('frontend/images/search.png')}}" alt=""></button>
 									</form>
 								</div>
@@ -134,7 +144,7 @@
 									</div>
 									<div class="cart_content">
 										<div class="cart_text"><a href="{{route('show.cart')}}">Giỏ hàng</a></div>
-										<div class="cart_price">{{Cart::priceTotal()}}</div>
+										<div class="cart_price">{{number_format(Cart::priceTotal(),0,',','.')}} đ</div>
 									</div>
 								</div>
 							</div>
@@ -156,6 +166,7 @@
 
 	<footer class="footer">
 		<div class="container">
+		<hr><br>
 			<div class="row">
 
 				<div class="col-lg-3 footer_col">
@@ -206,8 +217,7 @@
 					<div class="footer_column">
 						<div class="footer_title">Customer Care</div>
 						<ul class="footer_list">
-							<li><a href="#">My Account</a></li>
-							
+							<li><a href="#">My Account</a></li>		
 						</ul>
 					</div>
 				</div>
@@ -216,33 +226,29 @@
 		</div>
 	</footer>
 
-	<!-- Copyright -->
-
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					
-					<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
-						<div class="copyright_content"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</div>
-						<div class="logos ml-sm-auto">
-							<ul class="logos_list">
-								<li><a href="#"><img src="{{asset('frontend/images/logos_1.png')}}" alt=""></a></li>
-								<li><a href="#"><img src="{{asset('frontend/images/logos_2.png')}}" alt=""></a></li>
-								<li><a href="#"><img src="{{asset('frontend/images/logos_3.png')}}" alt=""></a></li>
-								<li><a href="#"><img src="{{asset('frontend/images/logos_4.png')}}" alt=""></a></li>
-							</ul>
-						</div>
+<!-- Modal tracking  -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal Tracking</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="{{route('order.tracking')}}" method="GET">
+					@csrf
+					<div class="modal-body">
+						<label for=""><h4>Status Code</h4></label>
+						<input type="text" required="" name="code" class="form-control" placeholder="Order Status Code" >
 					</div>
-				</div>
+					<button class="btn btn-danger" type="submit" style="margin-left: 13px;">Track Now</button>
+				</form>
 			</div>
 		</div>
 	</div>
-</div>
-
+	</div>
 <script src="{{asset('frontend/js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{asset('frontend/styles/bootstrap4/popper.js')}}"></script>
 <script src="{{asset('frontend/styles/bootstrap4/bootstrap.min.js')}}"></script>

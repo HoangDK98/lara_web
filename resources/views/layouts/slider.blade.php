@@ -21,7 +21,7 @@
 							<span class="discount_price_slider">{{number_format($slider->selling_price,0,',','.')}} đ</span>
 						@endif
 						</div> <br>
-						<div class="button banner_button"><a href="#">Shop Now</a></div>
+						<div class="button banner_button"><a href="{{asset('product/detail/'.$slider->id.'/'.$slider->product_name)}}">Buy Now</a></div>
 					</div>
 				</div>
 			</div>

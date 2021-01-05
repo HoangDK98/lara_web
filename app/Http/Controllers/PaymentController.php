@@ -59,13 +59,14 @@ class PaymentController extends Controller
         $data['total'] =$request->total;
         $data['shipping'] =$request->shipping_fee;
         $data['payment_type'] =$request->payment;
+        $data['status_code'] =mt_rand(100000,999999);
         if(Session::has('coupon')){
             $data['subtotal'] = Cart::subtotal() - Session::get('coupon')['discount']/100*Cart::subtotal();
         }else{
             $data['subtotal'] = Cart::subtotal();
         }
         $data['status'] =0;
-        $data['date'] =date('d-m-y');
+        $data['date'] =date('y-m-d');
         $data['month'] =date('F');
         $data['year'] =date('Y');  
         $order_id = DB::table('orders')->insertGetId($data);

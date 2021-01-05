@@ -116,14 +116,30 @@
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
-            <span class="menu-item-label">Blogs</span>
+            <span class="menu-item-label">Order</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{route('blog.categorylist')}}" class="nav-link">Blog Category</a></li>
-          <li class="nav-item"><a href="{{route('add.post')}}" class="nav-link">Add Post</a></li>
-          <li class="nav-item"><a href="{{route('all.post')}}" class="nav-link">Post List</a></li>
+          <li class="nav-item"><a href="{{route('admin.neworder')}}" class="nav-link">New Orders</a></li>
+          <li class="nav-item"><a href="{{route('admin.order.accept')}}" class="nav-link">Accept Payment</a></li>
+          <li class="nav-item"><a href="{{route('admin.order.process')}}" class="nav-link">Process Delivery</a></li>
+          <li class="nav-item"><a href="{{route('admin.order.delivered')}}" class="nav-link">Delivery Success</a></li>
+          <li class="nav-item"><a href="{{route('admin.order.cancle')}}" class="nav-link">Cancle Order</a></li>
+        </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Reports</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div>
+        </a>
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('admin.today.report')}}" class="nav-link">Today Report</a></li>
+          <li class="nav-item"><a href="{{route('admin.delivery.today')}}" class="nav-link">Delivery Today</a></li>
+          <li class="nav-item"><a href="{{route('admin.month.report')}}" class="nav-link">This Month</a></li>
+          <li class="nav-item"><a href="{{route('admin.view.report')}}" class="nav-link">View Report</a></li>
         </ul>
 
         <a href="#" class="sl-menu-link">
@@ -457,24 +473,24 @@
 
     <!-- preview img -->
     <script>
-      $(window).on('resize', function() {
-      if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-      })
-      $(window).on('resize', function() {
-        if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-      })
-      function previewImg(input) {
-		if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			$('#avatar')
-			.attr('src', e.target.result)
-			.width(100)
-			.height(100);
-		};
-      reader.readAsDataURL(input.files[0]);
-    }
-	  }
+		$(window).on('resize', function() {
+			if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function() {
+			if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+		function previewImg(input) {
+			if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#avatar')
+				.attr('src', e.target.result)
+				.width(100)
+				.height(100);
+			};
+			reader.readAsDataURL(input.files[0]);
+			}
+		}
         
 	</script>
 	
