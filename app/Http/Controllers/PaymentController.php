@@ -106,4 +106,10 @@ class PaymentController extends Controller
         );
         return Redirect()->to('/')->with($notification);
     }
+
+    public function successList(){
+        $order = DB::table('orders')->where('user_id',Auth::id())
+            ->where('status',3)->orderBy('id','DESC')->limit(5)->get();
+        return view('pages.return_order',compact('order'));
+    }
 }

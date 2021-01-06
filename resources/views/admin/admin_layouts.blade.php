@@ -145,12 +145,12 @@
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
-            <span class="menu-item-label">Others</span>
+            <span class="menu-item-label">Return Order</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{route('newsletters')}}" class="nav-link">Newsleters</a></li>
+          <li class="nav-item"><a href="" class="nav-link"></a></li>
         </ul>
       </div><!-- sl-sideleft-menu -->
 

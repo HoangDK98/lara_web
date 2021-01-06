@@ -30,7 +30,6 @@
                 <div class="product_description">
                     <div class="product_category">{{$product->category_name}} > {{$product->subcategory_name}}</div>
                     <div class="product_name">{{$product->product_name}}</div>
-                    <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
                     <div class="product_text"><p>{!! ($product->product_details) !!}</p></div>
                     <div class="order_info d-flex flex-row">
                         <form action="{{asset('product/addcart/'.$product->id)}}" method="POST">
@@ -64,7 +63,10 @@
                             @endif
                             <div class="button_container">
                                 <button type="submit" class="button cart_button">Add to Cart</button>
-                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                <br><br>
+                            <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                            <div class="addthis_inline_share_toolbox"></div> 
+            
                             </div>
                             
                         </form>
@@ -83,7 +85,7 @@
         <div class="row">
             <div class="col">
                 <div class="viewed_title_container">
-                    <h3 class="viewed_title">Recently Viewed</h3>
+                    <h3 class="viewed_title">Thông tin sản phẩm</h3>
                     <div class="viewed_nav_container">
                         <div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
                         <div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -91,13 +93,10 @@
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Product Details</a>
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Chi tiết sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Video Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Product Review</a>
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Nhận xét</a>
                     </li>
                 </ul>
                 
@@ -105,16 +104,17 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <br>{!! $product->product_details !!}
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <br>
-                    </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"><br>
-                        <div class="fb-comments" data-href="{{ Request::url() }}" data-width="" data-numposts="5"></div>
+                        <div class="fb-comments" data-href="{{Request::url()}}" data-width="" data-numposts="5"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ff5303191dd3f1a"></script>
 
 @endsection

@@ -228,27 +228,28 @@
 
 <!-- Modal tracking  -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Modal Tracking</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form action="{{route('order.tracking')}}" method="GET">
-					@csrf
-					<div class="modal-body">
-						<label for=""><h4>Status Code</h4></label>
-						<input type="text" required="" name="code" class="form-control" placeholder="Order Status Code" >
-					</div>
-					<button class="btn btn-danger" type="submit" style="margin-left: 13px;">Track Now</button>
-				</form>
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal Tracking</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="{{route('order.tracking')}}" method="GET">
+						@csrf
+						<div class="modal-body">
+							<label for=""><h4>Status Code</h4></label>
+							<input type="text" required="" name="code" class="form-control" placeholder="Order Status Code" >
+						</div>
+						<button class="btn btn-danger" type="submit" style="margin-left: 13px;">Track Now</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-	</div>
+
 <script src="{{asset('frontend/js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{asset('frontend/styles/bootstrap4/popper.js')}}"></script>
 <script src="{{asset('frontend/styles/bootstrap4/bootstrap.min.js')}}"></script>
@@ -291,6 +292,26 @@
 		}
 	@endif
 </script>  
+
+<!-- return order  -->
+<script>  
+	$(document).on("click", "#return", function(e){
+		e.preventDefault();
+		var link = $(this).attr("href");
+		swal({
+			title: "Are you Want to return?",
+			icon:'warning',
+			text: "One return , this will return your money !", 
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+				window.location.href = link;
+			} 
+		});
+	});
+</script>
 
 
 </html>

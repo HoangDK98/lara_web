@@ -1354,10 +1354,10 @@ select option
 {
 	margin-bottom: 0px;
 }
-.order_info
+/* .order_info
 {
-	margin-top: 53px;
-}
+	margin-top: 20px;
+} */
 .product_quantity
 {
 	width: 182px;
@@ -1549,12 +1549,12 @@ select option
 	display: inline-block;
 	font-size: 24px;
 	font-weight: 500;
-	margin-top: 75px;
+	margin-top: 20px;
 	clear: left;
 }
 .button_container
 {
-	margin-top: 43px;
+	margin-top: 30px;
 }
 .cart_button
 {

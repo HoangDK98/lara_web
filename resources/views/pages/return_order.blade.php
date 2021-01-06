@@ -15,7 +15,6 @@
                             <th scope="col">Amount</th>
                             <th scope="col">Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Status Code</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -38,9 +37,8 @@
                                 <span class="badge badge-danger">Cancle</span>
                                 @endif
                             </td>
-                            <td>{{$item->status_code}}</td>
                             <td>
-                                <a href="" class="btn btn-info">View</a>
+                                <a href="" class="btn btn-danger" id="return">Return</a>
                             </td>
                         </tr>
                         @endforeach

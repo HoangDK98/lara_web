@@ -114,16 +114,13 @@ Route::group(['prefix' =>'admin','namespace' => 'Admin'], function () {
 		Route::post('update/{id}', 'Coupon\CouponController@updateCoupon')->name('coupon.update');
 	});
 
-		//News Letters
-	Route::group(['prefix' =>'newsletter'], function () {
-		Route::get('/','Newsletter\NewsletterController@Coupon')->name('newsletters');
-		Route::get('delete/{id}', 'FrontController@deleteNewsletter')->name('newsletter.delete');
+	// 	//News Letters
+	// Route::group(['prefix' =>'newsletter'], function () {
+	// 	Route::get('/','Newsletter\NewsletterController@Coupon')->name('newsletters');
+	// 	Route::get('delete/{id}', 'FrontController@deleteNewsletter')->name('newsletter.delete');
 
-	});	
+	// });	
 
-
-
-	
 });
 
 //show subcategory with ajax
@@ -171,7 +168,9 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 	//Order tracking
 	Route::get('order/tracking','FrontController@orderTracking')->name('order.tracking');
 
-
+	
+	//Return order
+	Route::get('success/list', 'PaymentController@successList')->name('success.orderlist');
 
 
 
