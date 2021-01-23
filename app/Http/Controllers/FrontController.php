@@ -21,7 +21,7 @@ class FrontController extends Controller
     public function deleteNewsletter(){
         Newsletter::where('id',request()->id)->delete();
         $notification=array(
-            'messege'=>'Delete Successfully !',
+            'message'=>'Delete Successfully !',
             'alert-type'=>'success'
         ); 
         return Redirect()->back()->with($notification);
@@ -33,7 +33,7 @@ class FrontController extends Controller
             return view('pages.tracking',compact('tracking'));   
          }else{
             $notification = array(
-                'messege'=>'Status code invalid !',
+                'message'=>'Status code invalid !',
                 'alert-type'=>'error'
             ); 
             return Redirect()->back()->with($notification);

@@ -14,55 +14,53 @@
 					<div class="cart_container">
 						<div class="cart_title "><i class="fas fa-cart-plus"> Giỏ hàng</i></div>
 						<div class="cart_items">
-							<ul class="cart_list">
-                            @foreach($cart as $key => $item)
-								<li class="cart_item clearfix">
-									<div class="cart_item_image text-center"><img src="{{asset($item->options->image)}}" alt="" style="width:70px ;height:70px"></div>
-									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Name</div>
-											<div class="cart_item_text">{{$item->name}}</div>
-                                        </div>
-										<div class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Color</div>
-											<div class="cart_item_text"><span></span>{{$item->options->color}}</div>
-										</div>
-										<div class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Quantity</div><br>
-											<div class="form-group" style="width:70px">
-                                                <input onchange="updateCart(this.value,'{{$item->rowId}}')" class="form-control" type="number" value="{{$item->qty}}">
-                                            </div>
-										</div>
-										<div class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Price</div>
-											<div class="cart_item_text">{{number_format($item->price,0,',','.')}} đ</div>
-										</div>
-										<div class="cart_item_total cart_info_col">
-											<div class="cart_item_title">Total</div>
-											<div class="cart_item_text">{{number_format($item->price * $item->qty,0,',','.')}} đ</div>
-                                        </div>
-                                        <div class="cart_item_total cart_info_col">
-                                            <div class="cart_item_title">Action</div>
-                                            <a href= "{{asset('remove/cart/'.$item->rowId)}}" class="cart_item_text btn btn-sm btn-danger">X</a>
-										</div>
-									</div>
-                                </li>
-                                <hr>
-                            @endforeach
-							</ul>
+							<table class="table table-striped">
+								<thead>
+									<tr class="row text-center">
+										<th class="col-sm-1"><input type="checkbox" id="checkall"> All item</th>
+										<th class="col-sm-2">Image</th>
+										<th class="col-sm-2">Name</th>
+										<th class="col-sm-1">Color</th>
+										<th class="col-sm-1">Quantity</th>
+										<th class="col-sm-2">Price</th>
+										<th class="col-sm-2">Total</th>
+										<th class="col-sm-1">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+								@foreach($cart as $item)
+									<tr class="row text-center form">
+										<td class="col-sm-1">
+											<input type="checkbox" class="checkitem" value="{{$item->id}}">{{$item->id}}
+										</td>
+										<td class="col-sm-2"><img src="{{asset($item->options->image)}}" alt="" style="width:80px ;height:80px;padding-top:20px"></td>
+										<td class="col-sm-2">{{$item->name}}</td>
+										<td class="col-sm-1">{{$item->options->color}}</td>
+										<td class="col-sm-1" style="width:70px">
+											<input onchange="updateCart(this.value,'{{$item->rowId}}')" class="form-control" type="number" value="{{$item->qty}}">
+										</td>
+										<td class="col-sm-2">{{number_format($item->price,0,',','.')}} đ</td>
+										<td class="col-sm-2">{{number_format($item->price * $item->qty,0,',','.')}} đ</td>
+										<td class="col-sm-1">
+											<a href= "{{asset('remove/cart/'.$item->rowId)}}" class="cart_item_text btn btn-sm btn-danger">X</a>
+										</td>
+									</tr>
+								@endforeach
+								</tbody>
+							</table>
 						</div>
-						
 						<!-- Order Total -->
 						<div class="order_total">
 							<div class="order_total_content text-md-right">
 								<div class="order_total_title">Order Total:</div>
-								<div class="order_total_amount">{{number_format(Cart::total(),0,',','.')}} đ</div>
+								<!-- <div class="order_total_amount">{{number_format(Cart::total(),0,',','.')}} đ</div> -->
+
 							</div>
 						</div>
 
 						<div class="cart_buttons">
-							<button type="button" class="button cart_button_clear">Add to Cart</button>
-							<a href="{{route('user.checkout')}}" class="button cart_button_checkout">Checkout</a>
+							<a href="{{route('cart.delete')}}" class="btn btn-danger" id="delete">Xóa giỏ hàng</a>
+							<a href="{{route('user.checkout')}}" class=" btn btn-primary">Checkout</a>
 						</div>
 					</div>
 				</div>
@@ -79,6 +77,11 @@
     </div>
 
 @endif
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script src="{{asset('frontend/js/cart_custom.js')}}"></script>
+
 <script type='text/javascript'>
     function updateCart(qty, rowId) {
         $.get(
@@ -92,6 +95,49 @@
         );
     }
 </script>
-<script src="{{asset('frontend/js/cart_custom.js')}}"></script>
-    
+
+<script>  
+	$(document).on("click", "#delete", function(e){
+		e.preventDefault();
+		var link = $(this).attr("href");
+		swal({
+			title: "Are you sure delete my cart?",
+			icon: "warning", 
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+				window.location.href = link;
+			} 
+		});
+	});
+
+	// get item cart
+	var arrItem =[];
+
+	
+	$("#checkall").click(function(){
+		$("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+	});
+
+	// $('.checkitem:checked').each(function(){
+	// 	arrItem.push($(this).val());
+	// })
+
+	$(".checkitem").click(function(){
+		// alert($(this).val());
+	});
+	$(".checkitem").change(function(){
+		if($(this).prop("checked") == false){
+			$("#checkall").prop("checked","false");
+		}
+		// if($(".checkitem:checked").length == $(".checkitem").length){
+		// 	$("#checkall").prop("checked","true");
+		// }
+		
+	})
+
+
+</script>
 @endsection

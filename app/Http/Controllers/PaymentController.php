@@ -54,7 +54,7 @@ class PaymentController extends Controller
         $data['user_id'] = Auth::id();
         $data['payment_id'] = $charge->payment_method;
         $data['paying_amount'] =$charge->amount;
-        $data['balance_transaction'] =$charge->balance_transaction;
+        // $data['balance_transaction'] =$charge->balance_transaction;
         $data['stripe_order_id'] =$charge->metadata->order_id;
         $data['total'] =$request->total;
         $data['shipping'] =$request->shipping_fee;
@@ -66,7 +66,7 @@ class PaymentController extends Controller
             $data['subtotal'] = Cart::subtotal();
         }
         $data['status'] =0;
-        $data['date'] =date('y-m-d');
+        $data['date'] =date('d-m-y');
         $data['month'] =date('F');
         $data['year'] =date('Y');  
         $order_id = DB::table('orders')->insertGetId($data);
@@ -101,7 +101,7 @@ class PaymentController extends Controller
             Session::forget('coupon');
         }
         $notification = array(
-            'messege' => 'Order process successfully done !',
+            'message' => 'Order process successfully done !',
             'alert-type' => 'success',
         );
         return Redirect()->to('/')->with($notification);

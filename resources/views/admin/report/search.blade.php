@@ -5,7 +5,7 @@
     <div class="sl-mainpanel">
         <div class="sl-pagebody">
             <div class="sl-page-title">
-            <h5>Brand Update</h5>
+            <h5>Filter Report</h5>
             </div><!-- sl-page-title -->
             <div class="row">
                 <div class="col-lg-12">
@@ -31,10 +31,10 @@
                         <table id="table" class="table-striped w-auto table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="wd-15p">Payment Type</th>
                                     <th class="wd-10p">Order ID</th>
-                                    <th class="wd-15p">SubTotal</th>
-                                    <th class="wd-15p">Shipping</th>
+                                    <th class="wd-15p">Product_name</th>
+                                    <th class="wd-15p">Product_img</th>
+                                    <th class="wd-15p">Payment Type</th>
                                     <th class="wd-15p">Total</th>
                                     <th class="wd-15p">Date</th>
                                     <th class="wd-15p">Status</th>
@@ -69,17 +69,19 @@
         })
         $.ajax({           
             type: 'get',
-            url: "{{url('admin/search/report')}}",
+            url: "{{url('admin/report/result')}}",
             data: data,
             traditional: true,
             dataType:"json",
             success:function(data){ 
                 $.each(data.report,function(key,item){
                     var html = '<tr>';
+                    html += '<td>'+item.id+'</td>';
+                    html += '<td>'+item.product_name+'</td>';
+                    //img
+                    img = 'http://127.0.0.1:8000/'+item.image_one;
+                    html += "<td><img style='width:60px;height:60px' src='"+img+"'></td>"
                     html += '<td>'+item.payment_type+'</td>';
-                    html += '<td id="id">'+item.id+'</td>';
-                    html += '<td>'+formatter.format(item.subtotal)+'</td>';
-                    html += '<td>'+formatter.format(item.shipping)+'</td>';
                     html += '<td>'+formatter.format(item.total)+'</td>';
                     html += '<td>'+item.date+'</td>';
                     if(item.status == 0){
@@ -97,7 +99,7 @@
                     html += '<td>'+"<a class='btn btn-info' href='"+url+"'>Xem</a></td></tr>'";
                     $('#ritem').prepend(html);
                 });
-                // console.log(data);
+                console.log(data);
             }
         });
     }

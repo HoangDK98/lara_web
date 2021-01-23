@@ -60,7 +60,7 @@
 											<li></li>
 										</ul>
 									</li>
-									<li><a href="contact.html">Liên hệ<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="{{route('pages.contact')}}">Liên hệ<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
 							</div>
 

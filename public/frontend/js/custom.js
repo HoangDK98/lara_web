@@ -967,8 +967,7 @@ $(document).ready(function()
     			var targetTime;
     			var target_date;
 
-    			// Add a date to data-target-time of the .deals_timer_box
-    			// Format: "Feb 17, 2018"
+    			
     			if(timer.data('target-time') !== "")
     			{
     				targetTime = timer.data('target-time');

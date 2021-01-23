@@ -7,7 +7,7 @@
       <div class="sl-pagebody">
 
         <div class="card pd-20 pd-sm-40">
-            <h6 class="card-body-title">Order details</h6> <br>
+            <h6 class="card-body-title">View Order</h6> <br>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
@@ -21,15 +21,10 @@
                                 <tr>
                                     <th>Phone</th>
                                     <th>{{$order->phone}}</th>
-                                </tr><tr>
-                                    <th>Payment Type</th>
-                                    <th>{{$order->payment_type}}</th>
-                                </tr><tr>
-                                    <th>Payment ID</th>
-                                    <th>{{$order->payment_id}}</th>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <th>Total</th>
-                                    <th>{{number_format($order->total,0,'.',',')}}</th>
+                                    <th>{{number_format($order->total,0,'.',',')}} đ</th>
                                 </tr><tr>
                                     <th>Moth</th>
                                     <th>{{$order->month}}</th>
@@ -72,7 +67,7 @@
                                         @if($order->status == 0)
                                         <span class="badge badge-warning">Pending</span>
                                         @elseif($order->status == 1)
-                                        <span class="badge badge-info">Payment Accept</span>
+                                        <span class="badge badge-info">Order Accept</span>
                                         @elseif($order->status == 2)
                                         <span class="badge badge-warning">Progress</span>
                                         @elseif($order->status == 3)
@@ -97,13 +92,13 @@
                         <table class="table display responsive nowrap">
                             <thead>
                                 <tr>
-                                    <th class="wd-10p">Product ID</th>
-                                    <th class="wd-15p">Product Name</th>
-                                    <th class="wd-15p">Image</th>
-                                    <th class="wd-15p">Color</th>
+                                    <th class="wd-10p">ID</th>
+                                    <th class="wd-20p">Product Name</th>
+                                    <th class="wd-20p">Image</th>
+                                    <th class="wd-10p">Color</th>
                                     <th class="wd-10p">Quantity</th>
-                                    <th class="wd-10p">Unit Price</th>
-                                    <th class="wd-25p">Total</th>
+                                    <th class="wd-15p">Unit Price</th>
+                                    <th class="wd-20p">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,11 +106,11 @@
                                 <tr>
                                     <td>{{$item->product_id}}</td>
                                     <td>{{$item->product_name}}</td>
-                                    <td><img src="{{asset($item->image_one)}}" height="50px" width="50px"></td>
+                                    <td><img src="{{asset($item->image_one)}}" height="80px" width="80px"class="center"></td>
                                     <td>{{$item->color}}</td>
                                     <td>{{$item->quantity}}</td>
-                                    <td>{{$item->single_price}}</td>
-                                    <td>{{$item->total_price}}</td>
+                                    <td>{{number_format($item->single_price,0,',','.')}} đ</td>
+                                    <td>{{number_format($item->total_price,0,',','.')}} đ</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -125,7 +120,7 @@
 
             </div>
             @if($order->status == 0)
-            <a href="{{route('admin.payment.accept',$order->id)}}" class="btn btn-info">Payment Accept</a><hr>
+            <a href="{{route('admin.payment.accept',$order->id)}}" class="btn btn-info">Accept Order</a><hr>
             <a href="{{route('admin.payment.cancle',$order->id)}}" class="btn btn-danger">Order Cancle</a>
             @elseif($order->status == 1)
             <a href="{{route('admin.process.delivery',$order->id)}}" class="btn btn-info">Progress Delevery</a><hr>

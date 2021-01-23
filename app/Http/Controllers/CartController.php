@@ -8,6 +8,7 @@ use Cart;
 use Response;
 use Auth;
 use Session;
+use Mail;
 class CartController extends Controller
 {
     //
@@ -40,7 +41,16 @@ class CartController extends Controller
     public function removeCart($rowId){
         Cart::remove($rowId);
         $notification=array(
-            'messege'=>'Product remove Cart Successfully !',
+            'message'=>'Remove Item Successfully !',
+            'alert-type'=>'success'
+        ); 
+        return Redirect()->back()->with($notification);
+    }
+
+    public function deleteCart(){
+        Cart::destroy();
+        $notification=array(
+            'message'=>'Remove Cart Successfully !',
             'alert-type'=>'success'
         ); 
         return Redirect()->back()->with($notification);
@@ -84,7 +94,7 @@ class CartController extends Controller
         $data['options']['color'] = $request->color;
         Cart::add($data);
         $notification=array(
-            'messege'=>'Product add to Cart Successfully !',
+            'message'=>'Product add to Cart Successfully !',
             'alert-type'=>'success'
         ); 
         return Redirect()->back()->with($notification);
@@ -95,7 +105,7 @@ class CartController extends Controller
             return view('pages.checkout',compact('cart'));
         }else {
             $notification = array(
-                'messege' =>'At first Login Your Account ',
+                'message' =>'At first Login Your Account ',
                 'alert-type' => 'warning'
             );
             return Redirect()->route('login')->with($notification);
@@ -122,13 +132,13 @@ class CartController extends Controller
                 // 'binance' => Cart::subtotal() - $check->discount/100*Cart::subtotal()
             ]);
             $notification = array(
-                'messege' =>'Applied successfully coupon ',
+                'message' =>'Applied successfully coupon ',
                 'alert-type' => 'success'
             );
             return Redirect()->back()->with($notification);
         }else{
             $notification = array(
-                'messege' =>'Invalid coupon ',
+                'message' =>'Invalid coupon ',
                 'alert-type' => 'error'
             );
             return Redirect()->back()->with($notification);
@@ -141,5 +151,89 @@ class CartController extends Controller
     public function payment(){
         $cart = Cart::content();
         return view('pages.payment',compact('cart'));
+    }
+
+    public function searchProduct(Request $request){
+        $result = $request->search;
+        $product = DB::table('products')->where('product_name','like',"%$result%")->paginate(1);
+        return view('pages.search',compact('product','result'));
+
+    }
+
+    //return coupon
+    public function returnCoupon(){
+        
+    }
+
+    public function Order(Request $request){
+        $data = array();
+        $data['user_id'] = Auth::id();
+        // $data['payment_id'] = $charge->payment_method;
+        // $data['paying_amount'] =$charge->amount;
+        // $data['balance_transaction'] =$charge->balance_transaction;
+        // $data['stripe_order_id'] =$charge->metadata->order_id;
+        // $data['payment_type'] =$request->payment;
+        // $data['status_code'] =mt_rand(100000,999999);
+        $data['total'] =Cart::subtotal();
+        $data['shipping'] =$request->shipping_fee;
+        
+        $data['subtotal'] = Cart::subtotal();
+        
+        $data['status'] =0;
+        $data['date'] =date('d-m-y');
+        $data['month'] =date('F');
+        $data['year'] =date('Y');  
+        $order_id = DB::table('orders')->insertGetId($data);
+
+        //insert shipping table 
+        $shipping = array();
+        $shipping['order_id'] = $order_id;
+        $shipping['ship_name'] = $request->name;
+        $shipping['ship_phone'] = $request->phone;
+        $shipping['ship_email'] = $request->email;
+        $shipping['ship_address'] = $request->address;
+        $shipping['ship_city'] = $request->city;
+        DB::table('shipping')->insert($shipping);  
+
+        //insert order detail table
+
+        $content = Cart::content();
+        $detail = array();
+        foreach($content as $item){
+            $detail['order_id'] = $order_id;
+            $detail['product_id'] = $item->id;
+            $detail['product_name'] = $item->name;
+            $detail['color'] = $item->options->color;
+            $detail['quantity'] = $item->qty;
+            $detail['single_price'] = $item->price;
+            $detail['total_price'] = $item->price*$item->qty;
+            DB::table('orders_details')->insert($detail);
+        }
+
+        //send mail
+
+
+        $data['info'] = $request->all();
+        // dd($data['info']);
+        $email = $request->email;
+        $data['carts'] = Cart::content();
+        $data['total'] = Cart::total();
+
+        Mail::send('pages.email', $data, function ($message) use ($email) {
+            $message->from('doanhoang4598@gmail.com', 'Onehit');
+            $message->to($email, $email);
+            // $message->cc('hoang93861@nuce.edu.vn', 'Hoang93861');
+            $message->subject('Xác nhân mua hàng shop OneHit');
+        });
+        Cart::destroy();
+        
+        if(Session::has('coupon')){
+            Session::forget('coupon');
+        }
+        $notification = array(
+            'message' => 'Order process successfully done !',
+            'alert-type' => 'success',
+        );
+        return Redirect()->to('/')->with($notification);
     }
 }

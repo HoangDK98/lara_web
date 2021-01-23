@@ -70,8 +70,8 @@ Route::group(['prefix' =>'admin','namespace' => 'Admin'], function () {
 	});
 
 		//Order
-		Route::get('pending/order' , 'OrderController@newOrder')->name('admin.neworder');
-		Route::get('view/order/{id}' , 'OrderController@viewOrder')->name('admin.view.order');
+		Route::get('order/pending' , 'OrderController@newOrder')->name('admin.neworder');
+		Route::get('order/view/{id}' , 'OrderController@viewOrder')->name('admin.view.order');
 		Route::get('payment/accept/{id}' , 'OrderController@paymentAccept')->name('admin.payment.accept');
 		Route::get('payment/cancle/{id}' , 'OrderController@paymentCancle')->name('admin.payment.cancle');
 		Route::get('order/accept' , 'OrderController@orderAccept')->name('admin.order.accept');
@@ -82,11 +82,9 @@ Route::group(['prefix' =>'admin','namespace' => 'Admin'], function () {
 		Route::get('delivery/done/{id}' , 'OrderController@acceptDeleveryDone')->name('admin.delivery.done');
 
 		//Report
-		Route::get('today/report' , 'ReportController@todayReport')->name('admin.today.report');
-		Route::get('delivery/today' , 'ReportController@deliveryToday')->name('admin.delivery.today');
-		Route::get('month/report' , 'ReportController@monthReport')->name('admin.month.report');
-		Route::get('view/report' , 'ReportController@viewReport')->name('admin.view.report');
-		Route::get('search/report' , 'ReportController@searchReport')->name('admin.search.report');
+		Route::get('report/all' , 'ReportController@allReport')->name('admin.all.report');
+		Route::get('report/search' , 'ReportController@searchReport')->name('admin.search.report');
+		Route::get('report/result' , 'ReportController@getResultReport')->name('admin.result.report');
 
 		//Blog
 	Route::group(['prefix' =>'blog'], function () {
@@ -114,12 +112,7 @@ Route::group(['prefix' =>'admin','namespace' => 'Admin'], function () {
 		Route::post('update/{id}', 'Coupon\CouponController@updateCoupon')->name('coupon.update');
 	});
 
-	// 	//News Letters
-	// Route::group(['prefix' =>'newsletter'], function () {
-	// 	Route::get('/','Newsletter\NewsletterController@Coupon')->name('newsletters');
-	// 	Route::get('delete/{id}', 'FrontController@deleteNewsletter')->name('newsletter.delete');
 
-	// });	
 
 });
 
@@ -136,6 +129,7 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 
 	//Wishlist
 	Route::get('wishlist/add/{id}', 'WishlistController@addWishlist');
+	Route::get('wishlist/remove/{id}', 'WishlistController@removeWishlist')->name('wishlist.remove');
 
 	//Cart
 
@@ -143,10 +137,14 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 	Route::get('check','CartController@check');
 	Route::get('user/cart','CartController@showCart')->name('show.cart');
 	Route::get('remove/cart/{rowId}','CartController@removeCart');
+	Route::get('delete/cart','CartController@deleteCart')->name('cart.delete');
 	Route::get('update/cart','CartController@updateCart');
 	Route::get('cart/product/view/{id}','CartController@viewProduct');
 	Route::post('insert/into/cart','CartController@insertCart')->name('insert.into.cart');
 	Route::get('user/checkout','CartController@checkout')->name('user.checkout');
+	Route::get('coupon/return','CartController@returnCoupon');
+	Route::get('service/return','CartController@returnService');
+	Route::post('user/order','CartController@Order')->name('user.order');
 	Route::get('user/wishlist','CartController@wishlist')->name('user.wishlist');
 	Route::post('user/apply/coupon','CartController@applyCoupon')->name('apply.coupon');
 	Route::get('user/cancle/coupon','CartController@cancleCoupon')->name('cancle.coupon');
@@ -172,5 +170,11 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 	//Return order
 	Route::get('success/list', 'PaymentController@successList')->name('success.orderlist');
 
+	//contact
 
+	Route::get('contact/pages', 'ContactController@contact')->name('pages.contact');
+	Route::post('contact/form', 'ContactController@contactForm')->name('contact.form');
 
+	//contact
+	Route::get('admin/all/message', 'ContactController@allMessage')->name('all.message');
+	Route::post('product/search', 'CartController@searchProduct')->name('product.search');

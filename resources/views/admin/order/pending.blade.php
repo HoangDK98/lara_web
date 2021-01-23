@@ -10,14 +10,12 @@
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-		  	<h6 class="card-body-title">Order List
-		  	</h6> <br>
+		  	<h6 class="card-body-title">Order List</h6> <br>
 			<div class="table-wrapper">
 				<table id="datatable1" class="table-striped w-auto">
 					<thead>
 						<tr>
-							<th class="wd-15p">Payment Type</th>
-							<th class="wd-25p">Transition ID</th>
+							<th class="wd-10p">Order ID</th>
 							<th class="wd-20">SubTotal</th>
 							<th class="wd-20">Shipping</th>
 							<th class="wd-20">Total</th>
@@ -29,8 +27,7 @@
 					<tbody>
 						@foreach($order as $key=>$item)
 						<tr scope="row">
-							<td>{{$item->payment_type}}</td>
-							<td>{{$item->payment_id}}</td>
+							<td>{{$item->id}}</td>
 							<td>{{number_format($item->subtotal,0,'.',',')}} đ</td>
 							<td>{{number_format($item->shipping,0,'.',',')}} đ</td>
 							<td>{{number_format($item->total,0,'.',',')}} đ</td>
@@ -39,7 +36,7 @@
 								@if($item->status == 0)					
 								<span class="badge badge-warning">Pending</span>
 								@elseif($item->status == 1)
-								<span class="badge badge-info">Payment Accept</span>
+								<span class="badge badge-info">Accept Order</span>
 								@elseif($item->status == 2)
 								<span class="badge badge-warning">Progress</span>
 								@elseif($item->status == 3)

@@ -30,4 +30,13 @@ class WishlistController extends Controller
             return \Response::json(['error'=>'At first time login account']);
         }
     }
+
+    public function removeWishlist($id){
+        $wishlist = DB::table('wishlists')->where('product_id',$id)->delete();
+        $notification=array(
+            'message'=>'Delete Successfully !',
+            'alert-type'=>'success'
+            );
+        return Redirect()->back()->with($notification);
+    }
 }

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>TechShop</title>
+<title>OneHit</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="TechShop project">
+<meta name="description" content="OneHit project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{{asset('frontend/styles/bootstrap4/bootstrap.min.css')}}">
 <link href="{{asset('frontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css')}}" rel="stylesheet" type="text/css">
@@ -96,21 +96,13 @@
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Tìm kiếm sản phẩm...">
-										<!-- <div class="custom_dropdown">
-											<div class="custom_dropdown_list">
-												<span class="custom_dropdown_placeholder clc">Tất cả danh mục</span>
-												
-												<ul class="custom_list clc">
-													@foreach($category as $item)
-													<li><a class="clc" href="#">{{$item->category_name}}</a></li>
-													@endforeach
-												</ul>
-											</div>
-										</div> -->
+
+									<form action="{{route('product.search')}}" class="header_search_form clearfix" method="post">
+										@csrf
+										<input type="search" required="required" class="header_search_input" placeholder="Tìm kiếm sản phẩm..." name="search">
 										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="{{asset('frontend/images/search.png')}}" alt=""></button>
 									</form>
+
 								</div>
 							</div>
 						</div>
@@ -169,10 +161,10 @@
 		<hr><br>
 			<div class="row">
 
-				<div class="col-lg-3 footer_col">
+				<div class="col-lg-4 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
-							<div class="logo"><a href="#">TechShop</a></div>
+							<div class="logo"><a href="#">OneHit</a></div>
 						</div>
 						<div class="footer_title">Got Question? Call Us 24/7</div>
 						<div class="footer_phone">+84 986854598</div>
@@ -190,34 +182,41 @@
 						</div>
 					</div>
 				</div>
+@php 
+$category = DB::table('categories')->limit(6)->get();
+$brand = DB::table('brands')->limit(6)->get();
+$subcategory = DB::table('subcategories')->limit(6)->get();
 
-				<div class="col-lg-2 offset-lg-2">
+@endphp
+				<div class="col-lg-3">
 					<div class="footer_column">
-						<div class="footer_title">Find it Fast</div>
+						<div class="footer_title">Danh mục</div>	
 						<ul class="footer_list">
-							<li><a href="#">Computers & Laptops</a></li>
+							@foreach($category as $item)
+							<li><a href="#">{{$item->category_name}}</a></li>
+							@endforeach
 						</ul>
-						<div class="footer_subtitle">Gadgets</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3">
+					<div class="footer_column">
+						<div class="footer_title">Phụ danh mục</div>
 						<ul class="footer_list">
-							<li><a href="#">Car Electronics</a></li>
+							@foreach($subcategory as $item)
+							<li><a href="#">{{$item->subcategory_name}}</a></li>
+							@endforeach
 						</ul>
 					</div>
 				</div>
 
 				<div class="col-lg-2">
 					<div class="footer_column">
-						<ul class="footer_list footer_list_2">
-							<li><a href="#">Video Games & Consoles</a></li>
-							
-						</ul>
-					</div>
-				</div>
-
-				<div class="col-lg-2">
-					<div class="footer_column">
-						<div class="footer_title">Customer Care</div>
+						<div class="footer_title">Thương hiệu</div>
 						<ul class="footer_list">
-							<li><a href="#">My Account</a></li>		
+							@foreach($brand as $item)
+							<li><a href="#">{{$item->brand_name}}</a></li>
+							@endforeach
 						</ul>
 					</div>
 				</div>
@@ -274,20 +273,20 @@
 
 
  <script>
-	@if(Session::has('messege'))
+	@if(Session::has('message'))
 		var type="{{Session::get('alert-type','info')}}"
 		switch(type){
 			case 'info':
-				toastr.info("{{ Session::get('messege') }}");
+				toastr.info("{{ Session::get('message') }}");
 				break;
 			case 'success':
-				toastr.success("{{ Session::get('messege') }}");
+				toastr.success("{{ Session::get('message') }}");
 				break;
 			case 'warning':
-				toastr.warning("{{ Session::get('messege') }}");
+				toastr.warning("{{ Session::get('message') }}");
 				break;
 			case 'error':
-				toastr.error("{{ Session::get('messege') }}");
+				toastr.error("{{ Session::get('message') }}");
 				break;
 		}
 	@endif

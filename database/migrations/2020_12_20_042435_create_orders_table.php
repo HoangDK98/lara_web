@@ -16,13 +16,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('user_id')->nullable();
-            $table->string('payment_id')->nullable();
-            $table->string('paying_amount')->nullable();
-            $table->string('balance_transaction')->nullable();
-            $table->string('stripe_order_id')->nullable();
             $table->string('subtotal')->nullable();
             $table->string('shipping')->nullable();
-            $table->string('vat')->nullable();
             $table->string('total')->nullable();
             $table->string('status')->nullable()->default(0);
             $table->string('month')->nullable();

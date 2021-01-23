@@ -47,12 +47,9 @@ class ProductController extends Controller
         $data['selling_price'] = $request->selling_price;
         $data['product_details'] = $request->product_details;
         $data['main_slider'] = $request->main_slider;
-        $data['hot_deal'] = $request->hot_deal;
-        $data['best_rated'] = $request->best_rated;
-        $data['trend'] = $request->trend;
-        $data['mid_slider'] = $request->trend;
-        $data['hot_new'] = $request->hot_new;   
-        $data['buyone_getone'] = $request->buyone_getone;   
+        $data['mid_slider'] = $request->mid_slider;
+
+        $data['hot_deal'] = $request->hot_deal;  
         $data['status'] = 1;
 
         $image_one = $request->image_one;
@@ -155,13 +152,9 @@ class ProductController extends Controller
         $data['selling_price'] = $request->selling_price;
         $data['product_details'] = $request->product_details;
         $data['main_slider'] = $request->main_slider;
-        $data['hot_deal'] = $request->hot_deal;
-        $data['best_rated'] = $request->best_rated;
-        $data['trend'] = $request->trend;
-        $data['mid_slider'] = $request->trend;
-        $data['hot_new'] = $request->hot_new;  
-        $data['buyone_getone'] = $request->buyone_getone;  
-        
+        $data['mid_slider'] = $request->mid_slider;
+
+        $data['hot_deal'] = $request->hot_deal; 
         $update = DB::table('products')->where('id',$id)->update($data);
         if($update){
             $notification=array(

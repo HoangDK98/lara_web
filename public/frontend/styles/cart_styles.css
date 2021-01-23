@@ -1216,7 +1216,7 @@ select option
 {
 	width: 100%;
 	padding-top: 93px;
-	padding-bottom: 111px;
+	padding-bottom: 20px;
 }
 .cart_title
 {
@@ -1260,8 +1260,8 @@ select option
 }
 .cart_item_title
 {
-	font-size: 14px;
-	font-weight: 400;
+	font-size: 20px;
+	font-weight: bold;
 	color: rgba(0,0,0,0.5);
 }
 .cart_item_text

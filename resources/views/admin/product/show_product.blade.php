@@ -55,12 +55,6 @@
 
 							<div class="col-lg-4">
 								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Product Size: <span class="tx-danger"></span></label>
-                                    <br><p>{{$product->product_size}}</p>
-								</div>
-							</div><!-- col-4 -->
-							<div class="col-lg-4">
-								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Product Color: <span class="tx-danger"></span></label>
                                     <br><p>{{$product->product_color}}</p>
 								</div>
@@ -77,13 +71,6 @@
                                     <br><p>{{!! $product->product_details !!}}</p>
 								</div>
 							</div><!-- col-4 -->
-							<div class="col-lg-12">
-								<div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Video Link: <span class="tx-danger"></span></label>
-                                    <br><p>{{$product->video_link}}</p>
-								</div>
-							</div><!-- col-4 -->
-							
 							
 							<div class="col-lg-4">
 								<div class="form-group">
@@ -120,6 +107,15 @@
 							</div>
 							<div class="col-lg-4">
                                 <label class="">
+                                    @if($product->mid_slider == 1)
+                                    <span class="badge badge-success" title="active">Mid slider </span>
+                                    @else
+                                    <span class="badge badge-danger"title="inactive">Mid slider </span>
+                                    @endif
+								</label>
+							</div> 
+							<div class="col-lg-4">
+                                <label class="">
                                     @if($product->hot_deal == 1)
                                     <span class="badge badge-success" title="active">Hot deal </span>
                                     @else
@@ -127,42 +123,7 @@
                                     @endif
 								</label>
 							</div>
-							<div class="col-lg-4">
-                                <label class="">
-                                    @if($product->best_rated == 1)
-                                    <span class="badge badge-success" title="active">Best rate </span>
-                                    @else
-                                    <span class="badge badge-danger"title="inactive">Best rate </span>
-                                    @endif
-								</label>
-							</div>
-							<div class="col-lg-4">
-                                <label class="">
-                                    @if($product->trend == 1)
-                                    <span class="badge badge-success" title="active">Trend </span>
-                                    @else
-                                    <span class="badge badge-danger"title="inactive">Trend </span>
-                                    @endif
-								</label>
-							</div>
-							<div class="col-lg-4">
-                                <label class="">
-                                    @if($product->mid_slider == 1)
-                                    <span class="badge badge-success" title="active">Mid slider </span>
-                                    @else
-                                    <span class="badge badge-danger"title="inactive">Mid slider </span>
-                                    @endif
-								</label>
-							</div>
-							<div class="col-lg-4">
-                                <label class="">
-                                    @if($product->hot_new == 1)
-                                    <span class="badge badge-success" title="active">Hot new </span>
-                                    @else
-                                    <span class="badge badge-danger" title="inactive">Hot new </span>
-                                    @endif
-								</label>
-							</div>
+
 						 </div> <!-- end row -->
 										
 					</div><!-- form-layout -->

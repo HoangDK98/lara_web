@@ -10,7 +10,7 @@
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
 		<nav class="breadcrumb sl-breadcrumb">
-			<a class="breadcrumb-item" href="index.html">Starlight</a>
+			<a class="breadcrumb-item" href="">Starlight</a>
 			<span class="breadcrumb-item active">Product Section</span>
 		</nav>
 
@@ -114,40 +114,18 @@
 							</div>
 							<div class="col-lg-4">
 								<label class="ckbox">
-									<input type="checkbox" name="hot_deal" value="1" <?php if($product->hot_deal == 1){echo "checked";}?>>
-									<span>Hot Deal </span>
-								</label>
-							</div>
-							<div class="col-lg-4">
-								<label class="ckbox">
-									<input type="checkbox" name="best_rated" value="1" <?php if($product->best_rated == 1){echo "checked";}?>>
-									<span>Best Rate</span>
-								</label>
-							</div>
-							<div class="col-lg-4">
-								<label class="ckbox">
-									<input type="checkbox" name="trend" value="1" <?php if($product->trend == 1){echo "checked";}?>>
-									<span>Trend Product </span>
-								</label>
-							</div>
-							<div class="col-lg-4">
-								<label class="ckbox">
 									<input type="checkbox" name="mid_slider" value="1" <?php if($product->mid_slider == 1){echo "checked";}?>>
 									<span>Mid slider</span>
 								</label>
 							</div>
 							<div class="col-lg-4">
 								<label class="ckbox">
-									<input type="checkbox" name="hot_new" value="1" <?php if($product->hot_new == 1){echo "checked";}?>>
-									<span>Hot New </span>
+									<input type="checkbox" name="hot_deal" value="1" <?php if($product->hot_deal == 1){echo "checked";}?>>
+									<span>Hot Deal </span>
 								</label>
 							</div>
-							<div class="col-lg-4">
-								<label class="ckbox">
-									<input type="checkbox" name="buyone_getone" value="1" <?php if($product->buyone_getone == 1){echo "checked";}?>>
-									<span>Buy One Get One </span>
-								</label>
-							</div>
+
+
 						 </div> <!-- end row -->
 										
 					</div><!-- form-layout --><br><br>

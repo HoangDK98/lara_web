@@ -7,8 +7,6 @@
 
 @php 
 	$feature = DB::table('products')->where('status',1)->orderBy('id','ASC')->limit(12)->get();
-	$trend = DB::table('products')->where('status',1)->where('trend',1)->orderBy('id','DESC')->limit(8)->get();
-	$best = DB::table('products')->where('status',1)->where('best_rated',1)->orderBy('id','DESC')->limit(8)->get();
 	$hot = DB::table('products')->join('brands','brands.id','products.brand_id')
 		->select('products.*','brands.brand_name')->where('status',1)
 		->where('hot_deal',1)->orderBy('id','DESC')->limit(8)->get();
@@ -24,7 +22,7 @@
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{asset('frontend/images/char_1.png')}}" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
+							<div class="char_title">Miễn phí vận chuyển</div>
 						</div>
 					</div>
 				</div>
@@ -35,7 +33,7 @@
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{asset('frontend/images/char_2.png')}}" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
+							<div class="char_title">Giao hàng nhanh chóng</div>
 						</div>
 					</div>
 				</div>
@@ -46,7 +44,7 @@
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{asset('frontend/images/char_3.png')}}" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
+							<div class="char_title">Nhiều ưu đãi</div>
 						</div>
 					</div>
 				</div>
@@ -57,7 +55,7 @@
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{asset('frontend/images/char_4.png')}}" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
+							<div class="char_title">Đặt hàng 24/7</div>
 						</div>
 					</div>
 				</div>
@@ -75,7 +73,7 @@
 					<!-- Deals -->
 
 					<div class="deals">
-						<div class="deals_title">Deals of the Week</div>
+						<div class="deals_title">Giảm giá sốc</div>
 						<div class="deals_slider_container">
 							
 							<!-- Deals Slider -->
@@ -93,38 +91,38 @@
 											@endif
 										</div>
 										<div class="deals_info_line d-flex flex-row justify-content-start">
-											<div class="deals_item_name">{{$item->product_name}}</div>
+											<div class="deals_item_name"><a href="{{asset('product/detail/'.$item->id.'/'.$item->product_name)}}">{{$item->product_name}}</a></div>
 											@if($item->discount_price == NULL)
 											<div class="deals_item_price ml-auto">{{number_format($item->selling_price,0,',','.')}} đ</div>
 											@else
 											<div class="deals_item_price ml-auto">{{number_format($item->discount_price,0,',','.')}} đ</div>
 											@endif
 										</div>
-										<div class="available">
+										<!-- <div class="available">
 											<div class="available_line d-flex flex-row justify-content-start">
 												<div class="available_title">Đã bán: <span>25</span></div>
 												<div class="sold_title ml-auto">Còn lại: <span>{{$item->product_quantity}}</span></div>
 											</div>
 											<div class="available_bar"><span style="width:17%"></span></div>
-										</div>
+										</div> -->
 										<div class="deals_timer d-flex flex-row align-items-center justify-content-start">
 											<div class="deals_timer_title_container">
-												<div class="deals_timer_title">Hurry Up</div>
-												<div class="deals_timer_subtitle">Offer ends in:</div>
+												<div class="deals_timer_title">Nhanh tay</div>
+												<div class="deals_timer_subtitle">Còn:</div>
 											</div>
 											<div class="deals_timer_content ml-auto">
 												<div class="deals_timer_box clearfix" data-target-time="">
 													<div class="deals_timer_unit">
 														<div id="deals_timer1_hr" class="deals_timer_hr"></div>
-														<span>hours</span>
+														<span>giờ</span>
 													</div>
 													<div class="deals_timer_unit">	
 														<div id="deals_timer1_min" class="deals_timer_min"></div>
-														<span>mins</span>
+														<span>phút</span>
 													</div>
 													<div class="deals_timer_unit">
 														<div id="deals_timer1_sec" class="deals_timer_sec"></div>
-														<span>secs</span>
+														<span>giây</span>
 													</div>
 												</div>
 											</div>
@@ -147,7 +145,7 @@
 						<div class="tabbed_container">
 							<div class="tabs">
 								<ul class="clearfix">
-									<li class="active">Featured</li>
+									<li class="active"></li>
 								</ul>
 								<div class="tabs_line"><span></span></div>
 							</div>
@@ -160,7 +158,9 @@
 									<div class="featured_slider_item">
 										<div class="border_active"></div>
 										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{asset($item->image_one)}}" alt="" ></div>
+											<div class="product_image d-flex flex-column align-items-center justify-content-center">
+													<img src="{{asset($item->image_one)}}" alt="" >
+											</div>
 											<div class="product_content">
 												@if($item->discount_price == NULL)
 													<div class="product_price discount">{{number_format($item->selling_price,0,',','.')}} đ</div>
@@ -279,7 +279,7 @@
 										<div class="banner_2_text"><h4>{{$item->brand_name}}</h4> <br>
 											<h2>{{number_format($item->selling_price,0,',','.')}} đ</h2>
 										</div>
-										<div class="button banner_2_button"><a href="#">Explore</a></div>
+										<div class="button banner_2_button"><a href="{{asset('product/detail/'.$item->id.'/'.$item->product_name)}}">Mua ngay</a></div>
 									</div>
 									
 								</div>
@@ -337,15 +337,10 @@
 															<span class="old_price">{{number_format($item->selling_price,0,',','.')}} đ</span>
 														</div>
 													@endif
-													<div class="product_name"><div><a href="product.html">{{$item->product_name}}</a></div></div>
+													<div class="product_name"><div><a href="{{asset('product/detail/'.$item->id.'/'.$item->product_name)}}">{{$item->product_name}}</a></div></div>
 													<div class="product_extras">
-														<div class="product_color">
-															<input type="radio" checked name="product_color" style="background:#b19c83">
-															<input type="radio" name="product_color" style="background:#000000">
-															<input type="radio" name="product_color" style="background:#999999">
-														</div>
-														<button class="product_cart_button">Add to Cart</button>
-													</div>
+														<button class="product_cart_button add-cart" id="{{$item->id}}" data-toggle="modal" data-target="#cartmodel" onclick="proView(this.id)">Add to Cart</button>
+													</div>			
 												</div>
 												<button class="add-wishlist" data-id="{{$item->id}}">
 													<div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -420,22 +415,17 @@
 															<span class="old_price">{{number_format($item->selling_price,0,',','.')}} đ</span>
 														</div>
 													@endif
-													<div class="product_name"><div><a href="product.html">{{$item->product_name}}</a></div></div>
+													<div class="product_name"><div><a href="{{asset('product/detail/'.$item->id.'/'.$item->product_name)}}">{{$item->product_name}}</a></div></div>
 													<div class="product_extras">
-														<div class="product_color">
-															<input type="radio" checked name="product_color" style="background:#b19c83">
-															<input type="radio" name="product_color" style="background:#000000">
-															<input type="radio" name="product_color" style="background:#999999">
-														</div>
-														<button class="product_cart_button">Add to Cart</button>
-													</div>
+														<button class="product_cart_button add-cart" id="{{$item->id}}" data-toggle="modal" data-target="#cartmodel" onclick="proView(this.id)">Add to Cart</button>
+													</div>				
 												</div>
 												<button class="add-wishlist" data-id="{{$item->id}}">
 													<div class="product_fav"><i class="fas fa-heart"></i></div>
 												</button>
 												<ul class="product_marks">
 													@if($item->discount_price == NULL)
-														<li class="product_mark product_new" >New</li>
+														<li class="product_mark product_new">New</li>
 													@else
 														<li class="product_mark product_discount">
 															@php

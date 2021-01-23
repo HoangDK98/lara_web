@@ -70,11 +70,13 @@
                     </div>
 
                     <div class="product_grid row">
-                        <div class="product_grid_border"></div>
+                    <!-- arrivals_slider =>add active add to cart --> 
+                        <div class="product_grid_border "></div>
                         @foreach($product as $item)
                         <!-- Product Item -->
                         <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center is_new">
                             <div class="product_border"></div>
+                            <div class="border_active"></div>
                             <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{asset($item->image_one)}}" alt=""></div>
                             <div class="product_content">
                                 @if($item->discount_price == NULL)
@@ -87,6 +89,9 @@
                                     </div>
                                 @endif
                                 <div class="product_name"><div><a href="{{asset('product/detail/'.$item->id.'/'.$item->product_name)}}" tabindex="0">{{$item->product_name}}</a></div></div>
+                                <div class="product_extras">
+                                    <button class="product_cart_button add-cart" id="{{$item->id}}" data-toggle="modal" data-target="#cartmodel" onclick="proView(this.id)">Add to Cart</button>
+                                </div>                            
                             </div>
                             <div class="product_fav"><i class="fas fa-heart"></i></div>
                             <ul class="product_marks">
