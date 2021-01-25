@@ -37,27 +37,17 @@
 
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="#">Trang chủ<i class="fas fa-chevron-down"></i></a></li>
-									<li class="hassubs">
-										<a href="#">Ưu đãi<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li>
-												<a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-												<ul>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-												</ul>
-											</li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
+									<li><a href="/">Trang chủ<i class="fas fa-chevron-down"></i></a></li>
+									@php
+									$brand = DB::table('brands')->limit(5)->get();
+									@endphp
+
 									<li class="hassubs">
 										<a href="#">Thương hiệu nổi tiếng<i class="fas fa-chevron-down"></i></a>
 										<ul>
-											<li></li>
+											@foreach($brand as $item)
+											<li><a href="{{route('view.brand.product',$item->id)}}">{{$item->brand_name}}<i class="fas fa-chevron-down"></i></a></li>
+											@endforeach
 										</ul>
 									</li>
 									<li><a href="{{route('pages.contact')}}">Liên hệ<i class="fas fa-chevron-down"></i></a></li>

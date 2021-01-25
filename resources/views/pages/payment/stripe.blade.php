@@ -30,10 +30,6 @@
 											<div class="cart_item_title"><b>Name</b></div>
 											<div class="cart_item_text">{{$item->name}}</div>
                                         </div>
-										<div class="cart_item_color cart_info_col">
-											<div class="cart_item_title"><b>Color</b></div>
-											<div class="cart_item_text"><span></span>{{$item->options->color}}</div>
-										</div>
 										<div class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title"><b>Quantity</b></div>
 											<div class="cart_item_text">{{$item->qty}}</div>

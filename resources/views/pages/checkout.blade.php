@@ -5,12 +5,14 @@
 
 @php
     $service = DB::table('services')->get();
-    $coupon = DB::table('coupons')->get();
+    $coupon = DB::table('coupons')->where('status',1)->get();
 @endphp
 <link rel="stylesheet" type="text/css" href="{{asset('frontend/styles/cart_styles.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('frontend/styles/cart_responsive.css')}}">
 	<!-- Cart -->
 @if(Cart::count() > 0)
+<form method="post" action="{{route('user.order')}}">
+@csrf
 	<div class="cart_section">
 		<div class="container">
 			<div class="row">
@@ -18,42 +20,34 @@
 					<div class="cart_container">
 						<div class="cart_title ">Checkout</div>
 						<div class="cart_items">
-							<ul class="cart_list">
-                            @foreach($cart as $key => $item)
-								<li class="cart_item clearfix">
-									<div class="cart_item_image text-center"><img src="{{asset($item->options->image)}}" alt="" style="width:70px ;height:70px"></div>
-									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Name</div>
-											<div class="cart_item_text">{{$item->name}}</div>
-                                        </div>
-										<div class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Color</div>
-											<div class="cart_item_text"><span></span>{{$item->options->color}}</div>
-										</div>
-										<div class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Quantity</div><br>
-											<div class="form-group" style="width:70px">
-                                                <input onchange="updateCart(this.value,'{{$item->rowId}}')" class="form-control" type="number" value="{{$item->qty}}">
-                                            </div>
-										</div>
-										<div class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Price</div>
-											<div class="cart_item_text">{{number_format($item->price,0,',','.')}} đ</div>
-										</div>
-										<div class="cart_item_total cart_info_col">
-											<div class="cart_item_title">Total</div>
-											<div class="cart_item_text">{{number_format($item->price * $item->qty,0,',','.')}} đ</div>
-                                        </div>
-                                        <div class="cart_item_total cart_info_col">
-                                            <div class="cart_item_title">Action</div>
-                                            <a href= "{{asset('remove/cart/'.$item->rowId)}}" class="cart_item_text btn btn-sm btn-danger">X</a>
-										</div>
-									</div>
-                                </li>
-                                <hr>
-                            @endforeach
-							</ul>
+                        <table class="table table-striped">
+								<thead>
+									<tr class="row text-center">
+										<th class="col-sm-2">Image</th>
+										<th class="col-sm-3">Name</th>
+										<th class="col-sm-1">Quantity</th>
+										<th class="col-sm-2">Price</th>
+										<th class="col-sm-2">Total</th>
+										<th class="col-sm-2">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+								@foreach($cart as $item)
+									<tr class="row text-center">
+										<td class="col-sm-2"><img src="{{asset($item->options->image)}}" alt="" style="width:80px ;height:80px;"></td>
+										<td class="col-sm-3 align-bottom">{{$item->name}}</td>
+										<td class="col-sm-1" style="width:70px">
+                                        {{$item->qty}}
+										</td>
+										<td class="col-sm-2">{{number_format($item->price,0,',','.')}} đ</td>
+										<td class="col-sm-2">{{number_format($item->price * $item->qty,0,',','.')}} đ</td>
+										<td class="col-sm-2">
+											<a href= "{{asset('remove/cart/'.$item->rowId)}}" class="btn btn-sm btn-danger">X</a>
+										</td>
+									</tr>
+								@endforeach
+								</tbody>
+							</table>
                         </div>
                         <br>
                         <div class="container">
@@ -66,6 +60,8 @@
                                             <option value="{{$item->id}}">{{ $item->shop_name }} -- {{number_format($item->shipping_charge,0,',','.')}} đ</option>
                                             @endforeach
                                         </select>
+                                        <input id="service_id" name="service_id" type="hidden">
+
                                     </div>
                                     <div class="col-lg-6 text-lg-right" style="margin-top:20px">
                                         <label><h3>Mã khuyến mãi : <h3></label><br>
@@ -75,6 +71,7 @@
                                             <option value="{{$item->id}}">{{ $item->coupon }} -- {{$item->discount}}</option>
                                             @endforeach
                                         </select>
+                                        <input id="coupon_id" name="coupon_id" type="hidden">
                                     </div>     
                                 </div>
                                 <br>
@@ -90,8 +87,7 @@
 		<div class="container">
 			<div class="row">
                 <div class="col-lg-7" >
-                    <form method="post" action="{{route('user.order')}}">
-                        @csrf
+                    
                         <div class="form-group">
                             <label for="name">Full name</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Your full name" required>
@@ -116,35 +112,35 @@
                         <div class="contact_form_button">
                             <button type="submit" class="btn btn-info">Order</button>
                         </div>
-                    </form>
+
                 </div>
 
                 <div class="col-lg-5">
 </br>
-                    <form>
-                        <div class="contact_form_container">
-                            <ul class="list-group">
-                                <li class="list-group-item">Tiền sản phẩm : 
-                                    <span id="subtotal" style="float:right">{{number_format(Cart::subtotal(),0,',','.')}} đ</span>
-                                </li>
-                                <li class="list-group-item">Khuyến mãi (%):
-                                    <span id="discount" style="float:right"></span>
-                                </li>
-                                <li class="list-group-item">Phí ship :
-                                    <span id="shipping_fee" name="shipping_fee" style="float:right"></span>
-                                </li>
-                                <li class="list-group-item">Tổng :
-                                    <span id="total"  style="float:right">{{number_format(Cart::subtotal() - Session::get('coupon')['discount']/100*Cart::subtotal(),0,',','.')}} đ</span>
-                                </li>
-                            </ul> </br>
-                            
-                        </div>
-                    </form>
+                    <div class="contact_form_container">
+                        <ul class="list-group">
+                            <li class="list-group-item">Tiền sản phẩm : 
+                                <span id="subtotal" style="float:right">{{number_format(Cart::subtotal(),0,',','.')}} đ</span>
+                            </li>
+                            <li class="list-group-item">Khuyến mãi (%):
+                                <span id="discount" style="float:right"></span>
+                            </li>
+                            <li class="list-group-item">Phí ship :
+                                <span id="shipping_fee" style="float:right"></span>
+                            </li>
+                            <input type="hidden" >
+                            <li class="list-group-item">Tổng :
+                                <span id="total"  style="float:right">{{number_format(Cart::subtotal() - Session::get('coupon')['discount']/100*Cart::subtotal(),0,',','.')}} đ</span>
+                            </li>
+                        </ul> </br>
+                        
+                    </div>
                 </div>
 		    </div>
 		<div>
     
-    
+</form>
+
 @else
 
     <div class="container">
@@ -199,7 +195,7 @@
                 coupon_discount = Number(split);
             });
             $( "#discount" ).text( split ) ;
-            $( "#coupon_id" ).text( coupon_id );
+            $( "#coupon_id" ).val( coupon_id );
                 var tg = $('#subtotal').text();
                 var str_tg = tg.replace(/[^a-zA-Z0-9 ]/g, "");
                 total = Number(str_tg);
@@ -214,7 +210,7 @@
             var service_name = "";
             var split="";
             $("#service option:selected").each(function() {
-                service_id += $( this ).val() + "";
+                service_id += $( this ).val() + " ";
                 service_name += $( this ).text() + "";
                 split = service_name.split('--')[1];
                 var str_split = split.replace(/[^a-zA-Z0-9 ]/g, "");
@@ -222,7 +218,7 @@
             });
             
             $( "#shipping_fee" ).text( split );
-            $( "#service_id" ).text( service_id );
+            $( "#service_id" ).val( service_id );
                 var tg = $('#subtotal').text();
                 var str_tg = tg.replace(/[^a-zA-Z0-9 ]/g, "");
                 total = Number(str_tg);

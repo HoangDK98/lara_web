@@ -19,7 +19,7 @@
 									<tr class="row text-center">
 										<th class="col-sm-3">Image</th>
 										<th class="col-sm-3">Name</th>
-										<th class="col-sm-3">Color</th>
+										<th class="col-sm-3">Price</th>
 										<th class="col-sm-3">Action</th>
 									</tr>
 								</thead>
@@ -29,7 +29,11 @@
 									<tr class="row text-center">
 										<td class="col-sm-3"><img src="{{asset($item->image_one)}}" alt="" style="width:90px ;height:90px"></td>
 										<td class="col-sm-3">{{$item->product_name}}</td>
-										<td class="col-sm-3">{{$item->product_color}}</td>
+										@if($item->discount_price == NULL)
+										<td class="col-sm-3">{{number_format($item->selling_price,0,',','.')}} đ</td>
+										@else
+										<td class="col-sm-3">{{number_format($item->discount_price,0,',','.')}} đ</td>
+										@endif
 										<td class="col-sm-3">
 											<button class="cart_item_text btn btn-sm btn-success" id="{{$item->id}}" data-toggle="modal" data-target="#cartmodel" onclick="proView(this.id)">Add to cart</button>
 											<a href= "{{asset('product/detail/'.$item->id.'/'.$item->product_name)}}" class="cart_item_text btn btn-sm btn-primary">Xem</a>
@@ -91,16 +95,11 @@
 							<form action="{{route('insert.into.cart')}}" method="post">
 							@csrf
 								<input type="hidden" name="product_id" id="product_id">
-								<div class="form-group">
-									<label for="exampleInputcolor">Color</label>
-									<select name="color" class="form-control" id="color">
-						
-									</select>
-									
-								</div>
+								
 								<div class="form-group">
 									<label>Quantity</label>
-									<input type="number" class="form-control" name="qty" value="1">
+									<input onchange="check(this.value)" type="number" class="form-control" name="qty" value="1">
+									<input type="hidde" id="p_qty">
 								</div>
 								<button type="submit" class="btn btn-primary">Add to Cart</button>
 							</form>
@@ -125,15 +124,25 @@
 					$('#psub').text(data.product.subcategory_name);
 					$('#pbrand').text(data.product.brand_name);
 					$('#product_id').val(data.product.id);
-
-					var d = $('select[name="color"]').empty();
-					$.each(data.color,function(key,value){
-						$('select[name="color"]').append('<option value="'+value+'">'+value+'</option>'); 
-        			});
+					$('#p_qty').val(data.product.product_quantity);
+					
 				}
 			})
 		}
-
+		function check(qty) {
+			if(Number(qty) <= 0 ){
+				Swal.fire('Số lượng không hợp lệ', '', 'error');
+				setTimeout(function(){
+					window.location.reload(1);
+					}, 1500);
+			}
+			else if(Number(qty) > Number($('#p_qty').val())){
+				Swal.fire('Không đủ số lượng', '', 'error');
+				setTimeout(function(){
+					window.location.reload(1);
+					}, 1500);
+			}
+		}
 		//popup delete wishlist
 
 	</script> 

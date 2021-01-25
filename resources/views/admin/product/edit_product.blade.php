@@ -18,7 +18,8 @@
 			<div class="card pd-20 pd-sm-40">
 				<h6 class="card-body-title">Page Product Edit
 					<a href="{{route('product.all')}}" class="btn btn-primary btn-sm pull-right">All Product</a>
-				</h6> </br>
+                </h6> </br>
+              
 				<form method="post" action="{{route('product.updateWithoutImg',$product->id)}}" enctype="multipart/form-data">
 				@csrf
 					<div class="form-layout">
@@ -83,12 +84,6 @@
                                         </option>
 										@endforeach
 									</select>
-								</div>
-							</div><!-- col-4 -->
-							<div class="col-lg-6">
-								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Product Color: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="product_color" value="{{$product->product_color}}" id="color" data-role="tagsinput" placeholder="Enter Color">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-6">

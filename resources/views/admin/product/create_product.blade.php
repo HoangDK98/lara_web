@@ -14,6 +14,15 @@
 				<h6 class="card-body-title">New Product Add
 					<a href="{{route('product.all')}}" class="btn btn-primary btn-sm pull-right">All Product</a>
 				</h6> </br>
+				@if($errors->any())
+					<div class="alert alert-danger">
+						<ul>
+							@foreach ($errors->all() as $error)
+								<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+				@endif
 				<form method="post" action="{{route('product.store')}}" enctype="multipart/form-data">
 				@csrf
 					<div class="form-layout">
@@ -21,25 +30,25 @@
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label for="product_name" class="form-control-label">Product name : <span class="tx-danger">*</span></label>
-									<input require id="product_name" class="form-control" type="text" name="product_name" value="" placeholder="Enter product" required>
+									<input require id="product_name" class="form-control" type="text" name="product_name" value="" placeholder="Enter product">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label for="product_code" class="form-control-label">Product Code: <span class="tx-danger">*</span></label>
-									<input require id="product_code" class="form-control" type="text" name="product_code" value="" placeholder="Product code" required>
+									<input require id="product_code" class="form-control" type="text" name="product_code" value="" placeholder="Product code">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label for="product_quantity" class="form-control-label">Quantity: <span class="tx-danger">*</span></label>
-									<input require id="product_quantity" class="form-control" type="number" name="product_quantity" value="" placeholder="Quantity" required>
+									<input require id="product_quantity" class="form-control" type="number" name="product_quantity" value="" placeholder="Quantity">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-4">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Category: <span class="tx-danger">*</span></label>
-									<select class="form-control select2" data-placeholder="Choose Category" name="category_id" required>
+									<select class="form-control select2" data-placeholder="Choose Category" name="category_id">
 										<option label="Choose Category"></option>
 										@foreach($category as $item)
 										<option require value="{{$item->id}}">{{$item->category_name}}</option>
@@ -58,7 +67,7 @@
 							<div class="col-lg-4">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Brand: <span class="tx-danger">*</span></label>
-									<select class="form-control select2" data-placeholder="Choose Brand" name="brand_id" required>
+									<select class="form-control select2" data-placeholder="Choose Brand" name="brand_id">
 										<option label="Choose Brand"></option>
 										@foreach($brand as $item)
 										<option require value="{{$item->id}}">{{$item->brand_name}}</option>
@@ -68,14 +77,8 @@
 							</div><!-- col-4 -->
 							<div class="col-lg-6">
 								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Product Color: <span class="tx-danger">*</span></label>
-									<input require class="form-control" type="text" name="product_color" id="color" data-role="tagsinput" placeholder="Enter Color" required>
-								</div>
-							</div><!-- col-4 -->
-							<div class="col-lg-6">
-								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Selling price: <span class="tx-danger">*</span></label>
-									<input require class="border form-control" type="text" name="selling_price" id="size" placeholder="Selling Price" required>
+									<input require class="border form-control" type="text" name="selling_price" id="size" placeholder="Selling Price">
 								</div>
 							</div><!-- col-12 -->	
 							<div class="col-lg-6">
@@ -87,7 +90,7 @@
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label class="form-control-label">Product detail: <span class="tx-danger">*</span></label>
-									<textarea require class="form-control" id="summernote" name="product_details" required></textarea>
+									<textarea require class="form-control" id="summernote" name="product_details"></textarea>
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-4">

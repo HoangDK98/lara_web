@@ -30,32 +30,24 @@
                 <div class="product_description">
                     <div class="product_category">{{$product->category_name}} > {{$product->subcategory_name}}</div>
                     <div class="product_name">{{$product->product_name}}</div>
-                    <div class="product_text"><p>{!! ($product->product_details) !!}</p></div>
+                    <div class="product_text"><p>{!! ($product->product_details) !!}</p></div><br>
                     <div class="order_info d-flex flex-row">
                         <form action="{{asset('product/addcart/'.$product->id)}}" method="POST">
                         @csrf
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Color</label>
-                                        <select name="color" id="exampleFormControlSelect1" class="form-control input-lg">
-                                        @foreach($product_color as $color)
-                                            <option value="{{$color}}">{{ $color }}</option>
-                                        @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect2">Quantity</label>
-                                        <input id="exampleFormControlSelect2" class="form-control" type="number" name="qty" value="1" pattern="[0-9]">
+                                        <input type="hidden" id="p_qty" value="{{$product->product_quantity}}"></input>
+                                        <input onchange="check(this.value)" class="form-control" type="number" name="qty" value="1" pattern="[0-9]">
                                     </div>
                                 </div>   
+                                
                             </div>
                             @if($product->discount_price == NULL)
-                                <div class="product_price discount">{{number_format($product->selling_price,0,',','.')}} đ</div>
+                                <div class="product_price discount">Giá bán : {{number_format($product->selling_price,0,',','.')}} đ</div>
                             @else
-                                <div class="product_price discount">{{number_format($product->discount_price,0,',','.')}} đ
+                                <div class="product_price discount">Giá bán : {{number_format($product->discount_price,0,',','.')}} đ
                                 </div>
                                 <div>
                                     <span class="old_price">{{number_format($product->selling_price,0,',','.')}} đ</span>
@@ -117,4 +109,21 @@
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ff5303191dd3f1a"></script>
 
+<script type='text/javascript'>
+    function check(qty) {
+		if(Number(qty) <= 0 ){
+			Swal.fire('Số lượng không hợp lệ', '', 'error');
+			setTimeout(function(){
+				window.location.reload(1);
+				}, 1500);
+		}
+		else if(Number(qty) > Number($('#p_qty').val())){
+			Swal.fire('Không đủ số lượng', '', 'error');
+			setTimeout(function(){
+				window.location.reload(1);
+				}, 1500);
+		}
+        
+    }
+</script>
 @endsection

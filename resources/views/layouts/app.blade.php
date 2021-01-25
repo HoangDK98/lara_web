@@ -42,7 +42,7 @@
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('frontend/images/phone.png')}}" alt=""></div>+84 986854598</div>
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{asset('frontend/images/mail.png')}}" alt=""></div><a href="mailto:doanhoang4598@gmail.com">doanhoang4598@gmail.com</a></div>
 						<div class="top_bar_content ml-auto">
-							<div class="top_bar_menu">
+							<!-- <div class="top_bar_menu">
 								@guest
 								@else
 								<ul class="standard_dropdown top_bar_dropdown">
@@ -51,7 +51,7 @@
 									</li>										
 								</ul>
 								@endguest	
-							</div>
+							</div> -->
 							<div class="top_bar_user">
 								@guest
 								<div><a href="{{route('register')}}"><div class="user_icon"><img src="{{asset('frontend/images/user.svg')}}" alt=""></div>Đăng kí || Đăng nhập</a></div>
@@ -62,7 +62,6 @@
 											<ul>
 												<li><a href="{{route('user.wishlist')}}">Wishlist</a></li>
 												<li><a href="{{route('user.checkout')}}">Checkout</a></li>
-												<li><a href="#">Others</a></li>
 												<li><a href="{{route('user.logout')}}">Logout</a></li>
 											</ul>
 										</li>										

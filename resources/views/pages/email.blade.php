@@ -22,7 +22,7 @@
 			{{$info['address']}}
 		</p>
 		<p>
-			<span class="info">Địa chỉ: </span>
+			<span class="info">Thành phố: </span>
 			{{$info['city']}}
 		</p>
 	</div>
@@ -43,6 +43,15 @@
 				<td class="price">{{number_format($cart->price*$cart->qty,0,',','.')}} VND</td>
 			</tr>
 			@endforeach
+			<hr>
+			<tr>
+				<td colspan="3">Phí ship:</td>
+				<td class="total-price">{{number_format($service,0,',','.')}} VND</td>
+			</tr>
+			<tr>
+				<td colspan="3">Khuyến mãi:</td>
+				<td class="total-price">{{$coupon}} %</td>
+			</tr>
 			<tr>
 				<td colspan="3">Tổng tiền:</td>
 				<td class="total-price">{{number_format($total,0,',','.')}} VND</td>

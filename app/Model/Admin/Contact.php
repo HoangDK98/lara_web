@@ -4,10 +4,13 @@ namespace App\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Newsletter extends Model
+class Contact extends Model
 {
     //
     protected $fillable = [
-        'email'
+        'name',
+        'phone',
+        'email',
+        'message',
     ];
 }

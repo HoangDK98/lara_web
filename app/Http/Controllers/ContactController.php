@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Model\Admin\Contact;
+use Response;
 
 use Illuminate\Http\Request;
-use DB;
 class ContactController extends Controller
 {
     
@@ -16,14 +17,14 @@ class ContactController extends Controller
     }
 
     public function contactForm(Request $request){
-        $data= array();
+        $contact = new Contact();
 
-        $data['name'] = $request->name;
-        $data['email'] = $request->email;
-        $data['phone'] = $request->phone;
-        $data['message'] = $request->message;
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->message = $request->message;
 
-        DB::table('contacts')->insert($data);
+        $contact->save();
 
         $notification=array(
             'message'=>'Send message Successfully !',
@@ -33,7 +34,36 @@ class ContactController extends Controller
     }
 
     public function allMessage(){
-        $message = DB::table('contacts')->get();
+        $message = Contact::get();
         return view('admin.contact.all_message',compact('message'));
+    }
+
+    public function newMessage(){
+        $message = Contact::where('status',0)->get();
+        return view('admin.contact.all_message',compact('message'));
+    }
+
+    public function processedMessage(){
+        $message = Contact::where('status',1)->get();
+        return view('admin.contact.all_message',compact('message'));
+    }
+
+    public function process($id){
+        $message = Contact::where('id',$id)->first();
+        $message->status =1;
+        $message->save();
+        $notification=array(
+            'message'=>'Đã xử lý',
+            'alert-type'=>'success'
+            );
+        return Redirect()->back()->with($notification);
+    }
+
+
+    public function viewMessage($id){
+        $message = Contact::where('id',$id)->first();
+        return response::json(array(
+            'message' => $message,
+        ));
     }
 }

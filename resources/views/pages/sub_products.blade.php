@@ -21,7 +21,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
-
+            <br><br><br><br>
+                
                 <!-- Shop Sidebar -->
                 <div class="shop_sidebar">
                     <div class="sidebar_section">
@@ -32,14 +33,15 @@
                             @endforeach
                         </ul>
                     </div>
+                    <br>
                     <div class="sidebar_section">
-                        <div class="sidebar_subtitle brands_subtitle">Brands</div>
+                        <div class="sidebar_title">Brands</div>
                         <ul class="brands_list">
                             @foreach($brands as $item)
                             @php 
                             $brand = DB::table('brands')->where('id',$item->brand_id)->first();
                             @endphp
-                            <li class="brand"><a href="#">{{$brand->brand_name}}</a></li>      
+                            <li class="brand"><a href="{{route('view.brand.product',$brand->id)}}">{{$brand->brand_name}}</a></li>      
                             @endforeach                  
                         </ul>
                     </div>
@@ -54,19 +56,6 @@
                 <div class="shop_content">
                     <div class="shop_bar clearfix">
                         <h3 style="color:blue">{{$sub_name}}</h3>
-                        <div class="shop_sorting">
-                            <span>Sort by:</span>
-                            <ul>
-                                <li>
-                                    <span class="sorting_text">highest rated<i class="fas fa-chevron-down"></span></i>
-                                    <ul>
-                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
-                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-                                        <li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>price</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
 
                     <div class="product_grid row">

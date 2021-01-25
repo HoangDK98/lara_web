@@ -1665,6 +1665,8 @@ select option
 	-ms-transform: translateX(-37px);
 	-o-transform: translateX(-37px);
 	transform: translateX(-37px);
+	border-right: 1px solid #00000030;
+	height: 83%;
 }
 .sidebar_title
 {
@@ -1673,7 +1675,8 @@ select option
 }
 .sidebar_categories
 {
-	margin-top: 37px;
+	margin-top: 12px;
+	margin-left: 10px;
 }
 .sidebar_categories li
 {
@@ -1755,6 +1758,7 @@ select option
 .brands_list
 {
 	margin-top: 12px;
+	margin-left: 10px;
 }
 .brand
 {

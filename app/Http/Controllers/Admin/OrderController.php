@@ -37,7 +37,7 @@ class OrderController extends Controller
     public function paymentAccept($id){
         DB::table('orders')->where('id',$id)->update(['status' => 1]);
         $notification = array(
-            'message' => 'Payment Accept',
+            'message' => 'Accept order success',
             'alert-type' => 'success',
         );
         return Redirect()->route('admin.neworder')->with($notification);
@@ -45,7 +45,7 @@ class OrderController extends Controller
     public function paymentCancle($id){
         DB::table('orders')->where('id',$id)->update(['status'=> 4]);   
         $notification = array(
-            'message' => 'Payment Cancle',
+            'message' => 'Cancle order success',
             'alert-type' => 'success',
         );
         return Redirect()->route('admin.neworder')->with($notification);

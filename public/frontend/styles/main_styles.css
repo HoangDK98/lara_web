@@ -1924,10 +1924,7 @@ select option
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.product_fav.active i
-{
-	color: red;
-}
+
 .product_item:hover .product_fav
 {
 	visibility: visible;
@@ -2516,10 +2513,10 @@ select option
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.product_fav.active i
+/* .product_fav.active i
 {
 	color: red;
-}
+} */
 
 /*********************************
 10. Hot Best Sellers
@@ -3532,6 +3529,7 @@ select option
 {
 	padding-top: 52px;
 	padding-bottom: 40px;
+    background-image: linear-gradient( rgba(153, 196, 178, 0.2) 60%, rgba(199, 212, 214, 0.4)),url("../images/footer.png");
 }
 .footer .logo_container
 {
@@ -3550,7 +3548,7 @@ select option
 }
 .footer .logo a
 {
-	color: #000000;
+	color: #6b6bb5;
 }
 .footer_title
 {
@@ -3624,7 +3622,7 @@ select option
 {
 	font-size: 12px;
 	font-weight: 500;
-	color: rgba(0,0,0,0.4);
+	color: rgb(31 9 9 / 52%);
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;

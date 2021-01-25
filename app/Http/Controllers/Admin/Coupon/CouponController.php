@@ -24,6 +24,7 @@ class CouponController extends Controller
         $coupon = new Coupon();
         $coupon->coupon = $request->coupon;
         $coupon->discount = $request->discount;
+        $coupon->status = 1;
         $coupon->save();
         $notification=array(
             'message'=>'Added Successfully !',
@@ -56,5 +57,23 @@ class CouponController extends Controller
         ); 
         return Redirect()->route('coupons')->with($notification);
     }
+
+    public function activeCoupon($id){
+        Coupon::where('id',$id)->update(['status'=>1]);
+        $notification=array(
+            'message'=>'Active Successfully !',
+            'alert-type'=>'success'
+        ); 
+        return Redirect()->back()->with($notification);
+    }
+    public function inactiveCoupon($id){
+        Coupon::where('id',$id)->update(['status'=>0]);
+        $notification=array(
+            'message'=>'Inactive Successfully !',
+            'alert-type'=>'success'
+        ); 
+        return Redirect()->back()->with($notification);
+    }
+   
 }
 

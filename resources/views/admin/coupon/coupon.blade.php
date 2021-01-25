@@ -17,23 +17,37 @@
 				<table id="datatable1" class="table-striped w-auto">
 					<thead>
 						<tr>
-							<th class="wd-20p">ID</th>
-							<th class="wd-30p">Coupon</th>
-							<th class="wd-30p">Discount</th>
-							<th>Action</th>
+							<th class="wd-10p">ID</th>
+							<th class="wd-10p">Coupon</th>
+							<th class="wd-15p">Discount</th>
+							<th class="wd-15p">Status</th>
+							<th class="wd-15p">Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($coupon as $key=>$item)
 						<tr scope="row">
-							<td>{{$item->id}}</td>
-							<td>{{$item->coupon}}</td>
-							<td>{{$item->discount}} %</td>
-							<td>
-								<a href="{{route('coupon.edit',$item->id)}}" class="btn btn-sm btn-info" >Edit</a>
-								<a href="{{route('coupon.delete',$item->id)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
+							<td class="wd-10p">{{$item->id}}</td>
+							<td class="wd-10p">{{$item->coupon}}</td>
+							<td class="wd-15p">{{$item->discount}} %</td>
+							<td class="wd-15p">
+							@if($item->status == 1)
+								<span class="badge badge-success">Active</span>
+							@else
+								<span class="badge badge-danger">Inactive</span>
+							@endif
+							</td>
+							<td class="wd-15p">
+								<a href="{{route('coupon.edit',$item->id)}}" class="btn btn-sm btn-primary" title="Edit" ><i class="fa fa-edit"></i></a>
+								<a href="{{route('coupon.delete',$item->id)}}" class="btn btn-sm btn-danger" id="delete" title="Delete"><i class="fa fa-trash"></i></a>
+								@if($item->status == 1)
+								<a href="{{route('coupon.inactive',$item->id)}}" class="btn btn-sm btn-secondary" title="Inactive"><i class="fa fa-thumbs-down"></i></a>
+								@else
+								<a href="{{route('coupon.active',$item->id)}}" class="btn btn-sm btn-info" title="Active"><i class="fa fa-thumbs-up"></i></a>
+								@endif
 							</td>
 						</tr>
+
 						@endforeach
 					</tbody>
 				</table>

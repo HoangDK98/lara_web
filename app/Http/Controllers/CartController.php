@@ -9,6 +9,9 @@ use Response;
 use Auth;
 use Session;
 use Mail;
+use App\Model\Admin\Order;
+use phpDocumentor\Reflection\Types\Null_;
+
 class CartController extends Controller
 {
     //
@@ -25,7 +28,6 @@ class CartController extends Controller
         $data['qty'] = 1;
         $data['weight'] = 1;
         $data['options']['image'] = $product->image_one;
-        $data['options']['color'] = '';
         Cart::add($data);
         return \Response::json(['success' => 'Product added cart sucessfully']);
     }
@@ -67,12 +69,8 @@ class CartController extends Controller
                 ->where('products.id',$id)
                 ->first();
 
-        $color = $product->product_color;
-        // add array color
-        $product_color = explode(',',$color);
         return response::json(array(
             'product' => $product,
-            'color' => $product_color
         ));
     }
 
@@ -91,7 +89,6 @@ class CartController extends Controller
         $data['qty'] = $request->qty;
         $data['weight'] = 1;
         $data['options']['image'] = $product->image_one;
-        $data['options']['color'] = $request->color;
         Cart::add($data);
         $notification=array(
             'message'=>'Product add to Cart Successfully !',
@@ -155,9 +152,8 @@ class CartController extends Controller
 
     public function searchProduct(Request $request){
         $result = $request->search;
-        $product = DB::table('products')->where('product_name','like',"%$result%")->paginate(1);
+        $product = DB::table('products')->where('product_name','like',"%$result%")->get();
         return view('pages.search',compact('product','result'));
-
     }
 
     //return coupon
@@ -166,25 +162,27 @@ class CartController extends Controller
     }
 
     public function Order(Request $request){
-        $data = array();
-        $data['user_id'] = Auth::id();
-        // $data['payment_id'] = $charge->payment_method;
-        // $data['paying_amount'] =$charge->amount;
-        // $data['balance_transaction'] =$charge->balance_transaction;
-        // $data['stripe_order_id'] =$charge->metadata->order_id;
-        // $data['payment_type'] =$request->payment;
-        // $data['status_code'] =mt_rand(100000,999999);
-        $data['total'] =Cart::subtotal();
-        $data['shipping'] =$request->shipping_fee;
+        $coupon_id =$request->coupon_id;
+        $fee_service = DB::table('services')->where('id',$request->service_id)->first()->shipping_charge;
+        $order = new Order();
+        $order->user_id = Auth::id();
+        $order->subtotal = Cart::subtotal();
+        $order->service_id =$request->service_id;
+        if($coupon_id != 0){
+            $order->coupon_id = $coupon_id;
+            $discount = DB::table('coupons')->where('id',$coupon_id)->first()->discount;
+            $order->total = Cart::subtotal() + $fee_service - $discount*Cart::subtotal()/100;
+        } else{
+            $order->total = Cart::subtotal() + $fee_service;
+        }
         
-        $data['subtotal'] = Cart::subtotal();
-        
-        $data['status'] =0;
-        $data['date'] =date('d-m-y');
-        $data['month'] =date('F');
-        $data['year'] =date('Y');  
-        $order_id = DB::table('orders')->insertGetId($data);
-
+        $order->status =0;
+        $order->date =date('d-m-y');
+        $order->month =date('F');
+        $order->year =date('Y');  
+        $order->save();
+        // subtract quantity in product table
+        $order_id = $order->id;
         //insert shipping table 
         $shipping = array();
         $shipping['order_id'] = $order_id;
@@ -203,21 +201,32 @@ class CartController extends Controller
             $detail['order_id'] = $order_id;
             $detail['product_id'] = $item->id;
             $detail['product_name'] = $item->name;
-            $detail['color'] = $item->options->color;
             $detail['quantity'] = $item->qty;
             $detail['single_price'] = $item->price;
             $detail['total_price'] = $item->price*$item->qty;
             DB::table('orders_details')->insert($detail);
+
+            DB::table('products')->where('id',$item->id)->decrement('product_quantity', $item->qty);
+            $product = DB::table('products')->where('id',$item->id)->first();
+            if($product->product_quantity == 0){
+                DB::table('products')->where('id',$item->id)->update(['status'=>0]);
+            }
         }
 
         //send mail
 
-
+        $data=array();
         $data['info'] = $request->all();
         // dd($data['info']);
         $email = $request->email;
         $data['carts'] = Cart::content();
-        $data['total'] = Cart::total();
+        $data['service'] = $fee_service;
+        if($order->coupon_id == NULL){
+            $data['coupon'] = 0;
+        }else{
+            $data['coupon'] = DB::table('coupons')->where('id',$order->coupon_id)->first()->discount;
+        }
+        $data['total'] = $order->total;
 
         Mail::send('pages.email', $data, function ($message) use ($email) {
             $message->from('doanhoang4598@gmail.com', 'Onehit');

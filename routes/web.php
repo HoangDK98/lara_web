@@ -110,6 +110,8 @@ Route::group(['prefix' =>'admin','namespace' => 'Admin'], function () {
 		Route::get('delete/{id}', 'Coupon\CouponController@deleteCoupon')->name('coupon.delete');
 		Route::get('edit/{id}', 'Coupon\CouponController@editCoupon')->name('coupon.edit');
 		Route::post('update/{id}', 'Coupon\CouponController@updateCoupon')->name('coupon.update');
+		Route::get('active/{id}', 'Coupon\CouponController@activeCoupon')->name('coupon.active');
+		Route::get('inactive/{id}', 'Coupon\CouponController@inactiveCoupon')->name('coupon.inactive');
 	});
 
 
@@ -162,6 +164,7 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 	//Product page detail
 	Route::get('subproducts/{id}','ProductController@viewSubProduct')->name('view.sub.product');
 	Route::get('cateproducts/{id}','ProductController@viewCateProduct')->name('view.cate.product');
+	Route::get('brands/{id}','ProductController@viewBrandProduct')->name('view.brand.product');
 
 	//Order tracking
 	Route::get('order/tracking','FrontController@orderTracking')->name('order.tracking');
@@ -177,4 +180,10 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 
 	//contact
 	Route::get('admin/all/message', 'ContactController@allMessage')->name('all.message');
+	Route::get('admin/new/message', 'ContactController@newMessage')->name('new.message');
+	Route::get('admin/processed/message', 'ContactController@processedMessage')->name('processed.message');
+	Route::get('admin/process/message/{id}', 'ContactController@process')->name('process.message');
+	Route::get('admin/message/view/{id}', 'ContactController@viewMessage');
+
+	//search product
 	Route::post('product/search', 'CartController@searchProduct')->name('product.search');

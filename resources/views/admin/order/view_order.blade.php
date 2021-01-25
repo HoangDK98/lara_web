@@ -95,7 +95,6 @@
                                     <th class="wd-10p">ID</th>
                                     <th class="wd-20p">Product Name</th>
                                     <th class="wd-20p">Image</th>
-                                    <th class="wd-10p">Color</th>
                                     <th class="wd-10p">Quantity</th>
                                     <th class="wd-15p">Unit Price</th>
                                     <th class="wd-20p">Total</th>
@@ -107,7 +106,6 @@
                                     <td>{{$item->product_id}}</td>
                                     <td>{{$item->product_name}}</td>
                                     <td><img src="{{asset($item->image_one)}}" height="80px" width="80px"class="center"></td>
-                                    <td>{{$item->color}}</td>
                                     <td>{{$item->quantity}}</td>
                                     <td>{{number_format($item->single_price,0,',','.')}} đ</td>
                                     <td>{{number_format($item->total_price,0,',','.')}} đ</td>

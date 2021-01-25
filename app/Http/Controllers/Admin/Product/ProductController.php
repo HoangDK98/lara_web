@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 use DB;
 use Image;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,7 @@ class ProductController extends Controller
         return json_encode($cate);
     }
 
-    public function storeProduct(Request $request){
+    public function storeProduct(ProductRequest $request){
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_code'] = $request->product_code;
@@ -43,7 +44,6 @@ class ProductController extends Controller
         $data['subcategory_id'] = $request->subcategory_id;
         $data['brand_id'] = $request->brand_id;
         $data['discount_price'] = $request->discount_price;
-        $data['product_color'] = $request->product_color;
         $data['selling_price'] = $request->selling_price;
         $data['product_details'] = $request->product_details;
         $data['main_slider'] = $request->main_slider;
@@ -80,13 +80,23 @@ class ProductController extends Controller
     }
 
     public function activeProduct ($id){
-        DB::table('products')->where('id',$id)->update(['status'=>1]);
-        $notification=array(
-            'message'=>'Product Successfully Active !',
-            'alert-type'=>'success'
-            );
-
-        return Redirect()->back()->with($notification);
+        $qty = DB::table('products')->where('id',$id)->first()->product_quantity;
+        if($qty == 0){
+            $notification=array(
+                'message'=>'Vui lòng thêm sản phẩm trước khi Active',
+                'alert-type'=>'error'
+                );
+    
+            return Redirect()->back()->with($notification);
+        }else{
+            DB::table('products')->where('id',$id)->update(['status'=>1]);
+            $notification=array(
+                'message'=>'Product Successfully Active !',
+                'alert-type'=>'success'
+                );
+    
+            return Redirect()->back()->with($notification);
+        }
     }
 
     public function inactiveProduct ($id){
@@ -148,7 +158,6 @@ class ProductController extends Controller
         $data['category_id'] = $request->category_id;
         $data['subcategory_id'] = $request->subcategory_id;
         $data['brand_id'] = $request->brand_id;
-        $data['product_color'] = $request->product_color;
         $data['selling_price'] = $request->selling_price;
         $data['product_details'] = $request->product_details;
         $data['main_slider'] = $request->main_slider;
@@ -183,7 +192,7 @@ class ProductController extends Controller
         $image_three = $request->file('image_three');
 
         if($image_one){
-            unlink($old_one);
+            // unlink($old_one);
             $image_name = $request->brand_name .'_'. date('dmy_H_s_i').'.'.$image_one->getClientOriginalExtension();
             $upload_path ='media/product/'; 
             $img_url = $upload_path.$image_name;
@@ -200,7 +209,7 @@ class ProductController extends Controller
             return Redirect()->route('product.all')->with($notification);
         }
         if($image_two){
-            unlink($old_two);
+            // unlink($old_two);
             $image_name = $request->brand_name .'_'. date('dmy_H_s_i').'.'.$image_two->getClientOriginalExtension();
             $upload_path ='media/product/'; 
             $img_url = $upload_path.$image_name;
@@ -217,7 +226,7 @@ class ProductController extends Controller
             return Redirect()->route('product.all')->with($notification);
         }
         if($image_three){
-            unlink($old_three);
+            // unlink($old_three);
             $image_name = $request->brand_name .'_'. date('dmy_H_s_i').'.'.$image_three->getClientOriginalExtension();
             $upload_path ='media/product/'; 
             $img_url = $upload_path.$image_name;

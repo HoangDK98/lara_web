@@ -17,32 +17,30 @@
 							<table class="table table-striped">
 								<thead>
 									<tr class="row text-center">
-										<th class="col-sm-1"><input type="checkbox" id="checkall"> All item</th>
 										<th class="col-sm-2">Image</th>
-										<th class="col-sm-2">Name</th>
-										<th class="col-sm-1">Color</th>
+										<th class="col-sm-3">Name</th>
 										<th class="col-sm-1">Quantity</th>
 										<th class="col-sm-2">Price</th>
 										<th class="col-sm-2">Total</th>
-										<th class="col-sm-1">Action</th>
+										<th class="col-sm-2">Action</th>
 									</tr>
 								</thead>
 								<tbody>
 								@foreach($cart as $item)
-									<tr class="row text-center form">
-										<td class="col-sm-1">
-											<input type="checkbox" class="checkitem" value="{{$item->id}}">{{$item->id}}
-										</td>
-										<td class="col-sm-2"><img src="{{asset($item->options->image)}}" alt="" style="width:80px ;height:80px;padding-top:20px"></td>
-										<td class="col-sm-2">{{$item->name}}</td>
-										<td class="col-sm-1">{{$item->options->color}}</td>
+								<?php 
+									$quantity = DB::table('products')->where('id',$item->id)->first()->product_quantity;
+								?>
+									<tr class="row text-center">
+										<td class="col-sm-2"><img src="{{asset($item->options->image)}}" alt="" style="width:80px ;height:80px;"></td>
+										<td class="col-sm-3 align-bottom">{{$item->name}}</td>
 										<td class="col-sm-1" style="width:70px">
-											<input onchange="updateCart(this.value,'{{$item->rowId}}')" class="form-control" type="number" value="{{$item->qty}}">
+											<input type="hidden" value="{{$quantity}}" id="p_qty">
+											<input id="c_id" onchange="updateCart(this.value,'{{$item->rowId}}')" class="form-control" type="number" value="{{$item->qty}}">
 										</td>
 										<td class="col-sm-2">{{number_format($item->price,0,',','.')}} đ</td>
 										<td class="col-sm-2">{{number_format($item->price * $item->qty,0,',','.')}} đ</td>
-										<td class="col-sm-1">
-											<a href= "{{asset('remove/cart/'.$item->rowId)}}" class="cart_item_text btn btn-sm btn-danger">X</a>
+										<td class="col-sm-2">
+											<a href= "{{asset('remove/cart/'.$item->rowId)}}" class="btn btn-sm btn-danger">X</a>
 										</td>
 									</tr>
 								@endforeach
@@ -53,7 +51,7 @@
 						<div class="order_total">
 							<div class="order_total_content text-md-right">
 								<div class="order_total_title">Order Total:</div>
-								<!-- <div class="order_total_amount">{{number_format(Cart::total(),0,',','.')}} đ</div> -->
+								<div class="order_total_amount">{{number_format(Cart::total(),0,',','.')}} đ</div>
 
 							</div>
 						</div>
@@ -72,27 +70,41 @@
     <div class="container">
         <div class="text-center">
             <h2> Giỏ hàng của bạn đang trống</h2><br>
-            <a href="/" class="btn btn-primary">Mua ngay </a>
+			<a href="/" class="btn btn-primary">Mua ngay </a>
         </div>
     </div>
-
+	
 @endif
-
+<br>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <script src="{{asset('frontend/js/cart_custom.js')}}"></script>
 
 <script type='text/javascript'>
     function updateCart(qty, rowId) {
-        $.get(
+		if(Number(qty) <= 0 ){
+			Swal.fire('Số lượng không hợp lệ', '', 'error');
+			setTimeout(function(){
+				window.location.reload(1);
+				}, 2000);
+		}
+		else if(Number(qty) > Number($('#p_qty').val())){
+			Swal.fire('Không đủ số lượng', '', 'error');
+			setTimeout(function(){
+				window.location.reload(1);
+				}, 2000);
+		}else{
+			$.get(
             "{{asset('update/cart')}}", {
                 qty: qty,
                 rowId: rowId
             },
             function() {
-                location.reload();
+				location.reload();
             }
-        );
+        	);
+		}
+        
     }
 </script>
 
@@ -112,32 +124,6 @@
 			} 
 		});
 	});
-
-	// get item cart
-	var arrItem =[];
-
-	
-	$("#checkall").click(function(){
-		$("input[type=checkbox]").prop('checked', $(this).prop('checked'));
-	});
-
-	// $('.checkitem:checked').each(function(){
-	// 	arrItem.push($(this).val());
-	// })
-
-	$(".checkitem").click(function(){
-		// alert($(this).val());
-	});
-	$(".checkitem").change(function(){
-		if($(this).prop("checked") == false){
-			$("#checkall").prop("checked","false");
-		}
-		// if($(".checkitem:checked").length == $(".checkitem").length){
-		// 	$("#checkall").prop("checked","true");
-		// }
-		
-	})
-
 
 </script>
 @endsection

@@ -94,11 +94,7 @@
                     </div>
 
                     <!-- Shop Page Navigation -->
-                    <div class="shop_page_nav d-flex flex-row">
-                        <ul class="page_nav d-flex flex-row">
-                            {{$product->links()}}
-                        </ul>
-                    </div>
+                    <!--  -->
                 </div>
 
             </div>

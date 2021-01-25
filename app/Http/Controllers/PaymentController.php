@@ -89,7 +89,6 @@ class PaymentController extends Controller
             $detail['order_id'] = $order_id;
             $detail['product_id'] = $item->id;
             $detail['product_name'] = $item->name;
-            $detail['color'] = $item->options->color;
             $detail['quantity'] = $item->qty;
             $detail['single_price'] = $item->price;
             $detail['total_price'] = $item->price*$item->qty;

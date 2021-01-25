@@ -142,7 +142,7 @@
           <li class="nav-item"><a href="{{route('admin.search.report')}}" class="nav-link {{ request()->is('admin/report/search')  ? 'active' : '' }}">Filter Report</a></li>
         </ul>
         <!-- contact -->
-        <a href="#" class="sl-menu-link {{ request()->is('admin/all/message')  ? 'active' : '' }}">
+        <a href="#" class="sl-menu-link {{ request()->is('admin/*/message')  ? 'active' : '' }}">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-contact-outline tx-24"></i>
             <span class="menu-item-label">Contact</span>
@@ -150,6 +150,8 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('new.message')}}" class="nav-link {{ request()->is('admin/new/message')  ? 'active' : '' }}">New message</a></li>
+          <li class="nav-item"><a href="{{route('processed.message')}}" class="nav-link {{ request()->is('admin/processed/message')  ? 'active' : '' }}">Processed message</a></li>
           <li class="nav-item"><a href="{{route('all.message')}}" class="nav-link {{ request()->is('admin/all/message')  ? 'active' : '' }}">All message</a></li>
         </ul>
 
@@ -172,7 +174,7 @@
           <div class="dropdown">
             <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
               <span class="logged-name">{{Auth::user()->name}}<span class="hidden-md-down"></span></span>
-              <img src="../img/img3.jpg" class="wd-32 rounded-circle" alt="">
+              <!-- <img src="../img/img3.jpg" class="wd-32 rounded-circle" alt=""> -->
             </a>
             <div class="dropdown-menu dropdown-menu-header wd-200">
               <ul class="list-unstyled user-profile-nav">
@@ -197,14 +199,18 @@
 
 
 
+	@php 
+		$message = DB::table('contacts')->where('status',0)->orderBy('created_at','desc')->limit(3)->get();
+		$order = DB::table('orders')->where('status',0)->orderBy('created_at','desc')->limit(3)->get();
+	@endphp
     <!-- ########## START: RIGHT PANEL ########## -->
     <div class="sl-sideright">
       <ul class="nav nav-tabs nav-fill sidebar-tabs" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" role="tab" href="#messages">Messages (2)</a>
+          <a class="nav-link active" data-toggle="tab" role="tab" href="#messages">Tin nhắn</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" role="tab" href="#notifications">Notifications (8)</a>
+          <a class="nav-link" data-toggle="tab" role="tab" href="#notifications">Thông báo</a>
         </li>
       </ul><!-- sidebar-tabs -->
 
@@ -212,43 +218,132 @@
       <div class="tab-content">
         <div class="tab-pane pos-absolute a-0 mg-t-60 active" id="messages" role="tabpanel">
           <div class="media-list">
-            <!-- loop starts here -->
-            <a href="" class="media-list-link">
+			<!-- loop starts here -->
+			@foreach($message as $item)
+            <a data-dismiss="tab" data-toggle="modal" data-target="#viewmessage" id="{{$item->id}}" onclick="proView(this.id)"  class="media-list-link">
               <div class="media">
-                <img src="" class="wd-40 rounded-circle" alt="">
                 <div class="media-body">
-                  <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Donna Seay</p>
-                  <span class="d-block tx-11 tx-gray-500">2 minutes ago</span>
-                  <p class="tx-13 mg-t-10 mg-b-0">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring.</p>
+                  <span class="mg-b-0 tx-medium tx-gray-800 tx-13"><i class="fe-phone"></i>{{$item->name}}<span>
+                  <span class="d-block tx-11 tx-gray-500">
+                      <?php 
+                        $date1=date_create(date('Y-m-d H:i:s'));
+                        $date2=date_create($item->created_at);
+                        $diff=date_diff($date2,$date1);
+                        $day = $diff->format('%a');
+                        $hour = $diff->format('%h');
+                        $minute = $diff->format('%i');
+                        $seconds = $diff->format('%s');
+                        if($day > 0){
+                          echo $diff->format("%a ngày trước");
+                        }else {
+                          if($hour > 0){
+                            echo $diff->format("%h giờ trước");
+                          } else{
+                            if($minute > 0){
+                              echo $diff->format("%i phút trước");
+                            } else{
+                              echo $diff->format("%s giây trước");
+                            }
+                          }
+                        }
+                      ?>    
+				            </span>
+                  <p class="tx-13 mg-t-10 mg-b-0">{{substr($item->message,0,50)}} ......</p>
                 </div>
               </div><!-- media -->
-            </a>
+			</a>
+			@endforeach
             <!-- loop ends here -->
           </div><!-- media-list -->
           <div class="pd-15">
-            <a href="" class="btn btn-secondary btn-block bd-0 rounded-0 tx-10 tx-uppercase tx-mont tx-medium tx-spacing-2">View All</a>
+            <a href="{{route('new.message')}}" class="btn btn-secondary btn-block bd-0 rounded-0 tx-10 tx-uppercase tx-mont tx-medium tx-spacing-2">View All</a>
           </div>
         </div><!-- #messages -->
 
         <div class="tab-pane pos-absolute a-0 mg-t-60 overflow-y-auto" id="notifications" role="tabpanel">
           <div class="media-list">
-            <!-- loop starts here -->
-            <a href="" class="media-list-link read">
+			<!-- loop starts here -->
+			@foreach($order as $item)
+            <a href="{{route('admin.view.order',$item->id)}}" class="media-list-link read" >
               <div class="media pd-x-20 pd-y-15">
-                <img src="" class="wd-40 rounded-circle" alt="">
                 <div class="media-body">
-                  <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
-                  <span class="tx-12">October 03, 2017 8:45am</span>
+                  <p class="tx-13 mg-b-0 tx-gray-700">
+					  <strong class="tx-medium tx-gray-800">
+						  	You have new order 
+						</strong><br>
+            <small>Đơn thứ {{$item->id}}</small>
+					</p>
+                  <span class="tx-12">
+						<?php 
+							$date1=date_create(date('Y-m-d H:i:s'));
+							$date2=date_create($item->created_at);
+							$diff=date_diff($date2,$date1);
+							$day = $diff->format('%a');
+							$hour = $diff->format('%h');
+							$minute = $diff->format('%i');
+							$seconds = $diff->format('%s');
+							if($day > 0){
+								echo $diff->format("%a ngày trước");
+							}else {
+								if($hour > 0){
+									echo $diff->format("%h giờ trước");
+								} else{
+									if($minute > 0){
+										echo $diff->format("%i phút trước");
+									} else{
+										echo $diff->format("%s giây trước");
+									}
+								}
+							}
+						?> 
+				  </span>
                 </div>
               </div><!-- media -->
-            </a>
+			</a>
+			@endforeach
             <!-- loop ends here -->
-          </div><!-- media-list -->
+		  </div><!-- media-list -->
+		  <div class="pd-15">
+            <a href="{{route('admin.neworder')}}" class="btn btn-secondary btn-block bd-0 rounded-0 tx-10 tx-uppercase tx-mont tx-medium tx-spacing-2">View All</a>
+          </div>
         </div><!-- #notifications -->
 
       </div><!-- tab-content -->
     </div><!-- sl-sideright -->
     <!-- ########## END: RIGHT PANEL ########## --->
+
+
+    <div class="modal fade" id="viewmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" >
+					<div class="row" >
+						<div class="col-lg-6">
+							<ul class="list-group">
+								<li class="list-group-item">Name :<span id="name"></span> </li>
+								<li class="list-group-item">Phone :<span id="phone"></span> </li>
+								<li class="list-group-item">Email :<span id="email"></span> </li>
+								<li class="list-group-item">Satus :<span id="status" class="badge"></span></li>
+							</ul>
+						</div>
+						<div class="col-lg-6">
+							<h6>Message</h6><br>
+							<textarea rows="7" cols="30" id="content_message" disabled></textarea><br>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer" id="modal-foot">
+								
+				</div>
+			</div>
+		</div>
+	</div>
     
     @endguest
 
@@ -413,6 +508,33 @@
                 });
             });
     </script>
+
+<script type="text/javascript">
+		function proView(id){
+			$.ajax({
+				url: "{{url('/admin/message/view/')}}/" + id, 
+				type :"GET",
+				dataType:"json",
+				success:function(data){
+					$('#name').text(data.message.name);
+					$('#phone').text(data.message.phone);
+					$('#email').text(data.message.email);
+					if(data.message.status == 0){
+						$('#status').empty();
+						$('#modal-foot').empty();
+						$('#status').append("<span class='badge' style='background:#ffc107;color:white'>pendding</span>");
+            $('#modal-foot').append("<a href='http://127.0.0.1:8000/admin/process/message/"+data.message.id+"' class='btn btn-primary'>Xử lý</a>");
+					}else{
+						$('#status').empty();
+						$('#modal-foot').empty();
+						$('#status').append("<span class='badge' style='background:green;color:white'>processed</span>");
+						$('#modal-foot').append("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>");
+					}	
+					$('#content_message').val(data.message.message);
+				}
+			})
+		}
+	</script>
 
   </body>
 </html>

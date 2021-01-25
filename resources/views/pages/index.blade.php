@@ -6,7 +6,7 @@
 @include('layouts.slider')
 
 @php 
-	$feature = DB::table('products')->where('status',1)->orderBy('id','ASC')->limit(12)->get();
+	$new = DB::table('products')->where('status',1)->orderBy('id','DESC')->limit(12)->get();
 	$hot = DB::table('products')->join('brands','brands.id','products.brand_id')
 		->select('products.*','brands.brand_name')->where('status',1)
 		->where('hot_deal',1)->orderBy('id','DESC')->limit(8)->get();
@@ -145,7 +145,7 @@
 						<div class="tabbed_container">
 							<div class="tabs">
 								<ul class="clearfix">
-									<li class="active"></li>
+									<li class="active">Sản phẩm mới</li>
 								</ul>
 								<div class="tabs_line"><span></span></div>
 							</div>
@@ -154,7 +154,7 @@
 								<div class="featured_slider slider">
 
 									<!-- Slider Item -->
-									@foreach($feature as $item)
+									@foreach($new as $item)
 									<div class="featured_slider_item">
 										<div class="border_active"></div>
 										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
@@ -489,16 +489,11 @@
 							<form action="{{route('insert.into.cart')}}" method="post">
 							@csrf
 								<input type="hidden" name="product_id" id="product_id">
-								<div class="form-group">
-									<label for="exampleInputcolor">Color</label>
-									<select name="color" class="form-control" id="color">
-						
-									</select>
-									
-								</div>
+								
 								<div class="form-group">
 									<label>Quantity</label>
-									<input type="number" class="form-control" name="qty" value="1">
+									<input onchange="check(this.value)" type="number" class="form-control" name="qty" value="1">
+									<input type="hidde" id="p_qty">
 								</div>
 								<button type="submit" class="btn btn-primary">Add to Cart</button>
 							</form>
@@ -523,14 +518,25 @@
 					$('#psub').text(data.product.subcategory_name);
 					$('#pbrand').text(data.product.brand_name);
 					$('#product_id').val(data.product.id);
-
-					var d = $('select[name="color"]').empty();
-					$.each(data.color,function(key,value){
-						$('select[name="color"]').append('<option value="'+value+'">'+value+'</option>'); 
-        			});
+					$('#p_qty').val(data.product.product_quantity);
 				}
 			})
 		}
+		function check(qty) {
+			if(Number(qty) <= 0 ){
+				Swal.fire('Số lượng không hợp lệ', '', 'error');
+				setTimeout(function(){
+					window.location.reload(1);
+					}, 1500);
+			}
+			else if(Number(qty) > Number($('#p_qty').val())){
+				Swal.fire('Không đủ số lượng', '', 'error');
+				setTimeout(function(){
+					window.location.reload(1);
+					}, 1500);
+			}
+		}
+
 	</script>
 	<!-- add wishlist with ajax -->
 	<script type="text/javascript">
@@ -575,46 +581,5 @@
 		});
 	</script>
 	
-	<!-- add cart with ajax -->
-	<!-- <script type="text/javascript">
-		$(document).ready(function(){
-			$('.add-cart').on('click',function(){
-				var id = $(this).data('id');
-				if(id){
-					$.ajax({ 
-						url: "{{url('cart/add')}}/" + id , 
-						type:"GET",
-						dataType:'json',
-						success:function(data){ 
-							const Toast = Swal.mixin({
-							toast: true,
-							position: 'top-end',
-							showConfirmButton: false,
-							timer: 3000,
-							timerProgressBar: true,
-							didOpen: (toast) => {
-								toast.addEventListener('mouseenter', Swal.stopTimer)
-								toast.addEventListener('mouseleave', Swal.resumeTimer)
-							}
-							})
-							if($.isEmptyObject(data.error)){
-								Toast.fire({
-								icon: 'success',
-								title: data.success
-								})
-							}else{
-								Toast.fire({
-								icon: 'error',
-								title: data.error
-							})
-							}
-							
-						},
-					});
-				}else{
-					alert('danger');
-				}
-			});
-		});
-	</script> -->
+	
 @endsection

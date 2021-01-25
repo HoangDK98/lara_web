@@ -52,13 +52,6 @@
                                     <br><p>{{$product->brand_name}}</p>
 								</div>
 							</div><!-- col-4 -->
-
-							<div class="col-lg-4">
-								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Product Color: <span class="tx-danger"></span></label>
-                                    <br><p>{{$product->product_color}}</p>
-								</div>
-							</div><!-- col-4 -->
 							<div class="col-lg-4">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Selling price: <span class="tx-danger"></span></label>
