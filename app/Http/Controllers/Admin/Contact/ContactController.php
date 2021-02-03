@@ -1,37 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Contact;
 use App\Model\Admin\Contact;
-use Response;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 class ContactController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
-    public function contact(){
-        return view('pages.contact');
-    }
-
-    public function contactForm(Request $request){
-        $contact = new Contact();
-
-        $contact->name = $request->name;
-        $contact->email = $request->email;
-        $contact->phone = $request->phone;
-        $contact->message = $request->message;
-
-        $contact->save();
-
-        $notification=array(
-            'message'=>'Send message Successfully !',
-            'alert-type'=>'success'
-        ); 
-        return Redirect()->back()->with($notification);
-    }
-
+    //
     public function allMessage(){
         $message = Contact::get();
         return view('admin.contact.all_message',compact('message'));
@@ -57,6 +34,7 @@ class ContactController extends Controller
             );
         return Redirect()->back()->with($notification);
     }
+
 
     public function viewMessage($id){
         $message = Contact::where('id',$id)->first();

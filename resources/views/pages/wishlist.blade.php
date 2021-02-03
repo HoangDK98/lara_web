@@ -99,7 +99,7 @@
 								<div class="form-group">
 									<label>Quantity</label>
 									<input onchange="check(this.value)" type="number" class="form-control" name="qty" value="1">
-									<input type="hidde" id="p_qty">
+									<input type="hidden" id="p_qty">
 								</div>
 								<button type="submit" class="btn btn-primary">Add to Cart</button>
 							</form>

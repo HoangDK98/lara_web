@@ -109,14 +109,11 @@
                             <label for="city">Thành phố</label>
                             <input type="text" class="form-control input_field" name="city" required="required" id="city" placeholder="Your City">
                         </div>
-                        <div class="contact_form_button">
-                            <button type="submit" class="btn btn-info">Order</button>
-                        </div>
 
                 </div>
 
                 <div class="col-lg-5">
-</br>
+                    </br>
                     <div class="contact_form_container">
                         <ul class="list-group">
                             <li class="list-group-item">Tiền sản phẩm : 
@@ -132,15 +129,25 @@
                             <li class="list-group-item">Tổng :
                                 <span id="total"  style="float:right">{{number_format(Cart::subtotal() - Session::get('coupon')['discount']/100*Cart::subtotal(),0,',','.')}} đ</span>
                             </li>
+                            <br>
+                            <div class="form-group">
+                                <ul class="logos_list">
+                                    <li><input type="radio" name="payment" value="0">Thanh toán khi nhận hàng</li>
+                                    <li><input type="radio" name="payment" value="1">Thanh toán online</li>
+                                </ul>
+                            </div>
+                            <div class="contact_form_button" style="float:right">
+                                <button type="submit" style="float:right" class="btn btn-info">Đặt hàng</button>
+                            </div>
                         </ul> </br>
                         
                     </div>
                 </div>
 		    </div>
 		<div>
-    
+        </div>
+        </div>
 </form>
-
 @else
 
     <div class="container">

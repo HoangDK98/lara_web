@@ -53,7 +53,7 @@
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="contact_form_container">
-						<div class="contact_form_title">Get in Touch</div>
+						<div class="contact_form_title">Để lại thông tin</div>
 
 						<form action="{{route('contact.form')}}" id="contact_form" method="post">
                             @csrf

@@ -236,13 +236,24 @@ class CartController extends Controller
         });
         Cart::destroy();
         
-        if(Session::has('coupon')){
-            Session::forget('coupon');
-        }
         $notification = array(
             'message' => 'Order process successfully done !',
             'alert-type' => 'success',
         );
-        return Redirect()->to('/')->with($notification);
+
+        $payment =array();
+        $payment['order_id'] = $order_id;
+        $payment['type'] = 0;
+        $payment['status'] = 0;
+        $payment['total'] = $order->total;
+
+        $payment_id = DB::table('payments')->insertGetId($payment);
+        
+
+        if($request->payment == 0 || $request->payment == null){
+            return Redirect()->to('/')->with($notification);
+        }else{
+            return view('pages.payment.stripe',compact('payment_id'));
+        }
     }
 }

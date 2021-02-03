@@ -154,7 +154,7 @@ Route::get('get/subcategory/{category_id}', 'Admin\Product\ProductController@get
 	//Payment
 	Route::get('payment/page','CartController@payment')->name('user.payment');
 	Route::post('process/payment','PaymentController@payment')->name('process.payment');
-	Route::post('stripe/charge','PaymentController@stripeCharge')->name('stripe.charge');
+	Route::post('stripe/charge/{id}','PaymentController@stripeCharge')->name('stripe.charge');
 
 
 	//View detail

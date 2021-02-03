@@ -1215,7 +1215,7 @@ select option
 .contact_info
 {
 	width: 100%;
-	padding-top: 70px;
+	padding-top: 50px;
 }
 .contact_info_item
 {
@@ -1256,7 +1256,9 @@ select option
 
 .contact_form
 {
-	padding-top: 85px;
+	padding-top: 50px;
+	margin-top: 20px;
+	background-color:#03a9f405 ;
 }
 .contact_form_container
 {

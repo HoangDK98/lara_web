@@ -7,7 +7,7 @@
     <div class="container">
     <br><hr><br>
         <div class="row">
-            <div class="col-12 card">
+            <div class="col-8 card">
                 <table class="table table-response">
                     <thead>
                         <tr>
@@ -15,8 +15,6 @@
                             <th scope="col">Amount</th>
                             <th scope="col">Date</th>
                             <th scope="col">Status</th>
-                            <!-- <th scope="col">Status Code</th> -->
-                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,13 +36,24 @@
                                 <span class="badge badge-danger">Cancle</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="" class="btn btn-info">View</a>
-                            </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ Auth::user()->name }}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> <a href="{{ route('password.change') }}">Edit Profile</a>  </li>
+                        <li class="list-group-item"> <a href="{{ route('password.change') }}">Change Password</a>  </li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="{{ route('user.logout') }}" class="btn btn-danger btn-sm btn-block">Logout</a>   
+                    </div>
+                </div>
             </div>
         </div>
     </div>

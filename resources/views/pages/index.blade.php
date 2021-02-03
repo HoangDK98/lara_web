@@ -173,7 +173,7 @@
 												@endif
 												<div class="product_name"><div><a href="{{asset('product/detail/'.$item->id.'/'.$item->product_name)}}">{{$item->product_name}}</a></div></div>
 												<div class="product_extras">
-													<button class="product_cart_button add-cart" id="{{$item->id}}" data-toggle="modal" data-target="#cartmodel" onclick="proView(this.id)">Add to Cart</button>
+													<button class="product_cart_button add-cart" id="{{$item->id}}" data-toggle="modal" data-target="#cartmodel" onclick="proView(this.id)">Thêm giỏ hàng</button>
 												</div>
 											</div>
 											<button class="add-wishlist" data-id="{{$item->id}}">
@@ -493,9 +493,9 @@
 								<div class="form-group">
 									<label>Quantity</label>
 									<input onchange="check(this.value)" type="number" class="form-control" name="qty" value="1">
-									<input type="hidde" id="p_qty">
+									<input type="hidden" id="p_qty">
 								</div>
-								<button type="submit" class="btn btn-primary">Add to Cart</button>
+								<button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
 							</form>
 						</div>
 					</div>
